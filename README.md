@@ -9,8 +9,8 @@ Single self-contained pages, no build step. Open the HTML file directly.
 
 | File | What it is |
 |---|---|
-| `usdt0-atlas.html` | The page. Currently out for review. |
-| `palette-lab.html` | Same page + a live palette switcher, for choosing a colour direction. Not for sharing as the real thing. |
+| **[usdt0-atlas.html](usdt0-atlas.html)** | The page. Currently out for review. |
+| **[palette-lab.html](palette-lab.html)** | Same page + a live palette switcher, for choosing a colour direction. Not for sharing as the real thing. |
 
 ## Palette
 
