@@ -9,7 +9,6 @@ Single self-contained pages, no build step. Open the HTML file directly.
 
 | File | What it is |
 |---|---|
-| `index.html` | Contents page, so the Pages URL lands somewhere. |
 | `usdt0-atlas.html` | The page. Currently out for review. |
 | `palette-lab.html` | Same page + a live palette switcher, for choosing a colour direction. Not for sharing as the real thing. |
 
@@ -40,3 +39,10 @@ Target is `developers.stellar.org/releases/usdt0`, served as a static file
 from the `stellar-docs` repo (`static/releases/usdt0/index.html`).
 That repo is Docusaurus with `baseUrl: "/"`, so `static/` lands at the site
 root and the page ships as-is — no port to MDX, no docs chrome.
+
+## Credits
+
+The visual language — the drafting-paper ground, the hairline figure
+chrome, the isometric-atlas approach to the diagrams and the animated
+flow markers — draws on
+[inkboard/system-atlas](https://github.com/inkboard/system-atlas).
