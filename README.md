@@ -12,8 +12,8 @@ or use a link below.
 
 | | Live page | Claude artifact |
 |---|---|---|
-| **The page** — Arrival, Access, Day one, Deploy. The version under review. | [open](https://mmazco.github.io/usdt0-visuals/usdt0-atlas.html) | [open](https://claude.ai/code/artifact/0c7e58a1-8583-4261-8b89-0026f56e6465) |
-| **Palette lab** — the same page with a live colour switcher and contrast readout, for choosing a direction. Not the real thing. | [open](https://mmazco.github.io/usdt0-visuals/palette-lab.html) | [open](https://claude.ai/code/artifact/8307c388-39a1-4089-8f58-b02d8fcd027c) |
+| **The page** — Arrival, Access, Day one, Deploy. The version under review. | [open](https://mmazco.github.io/a-currency-in-motion/usdt0-atlas.html) | [open](https://claude.ai/code/artifact/0c7e58a1-8583-4261-8b89-0026f56e6465) |
+| **Palette lab** — the same page with a live colour switcher and contrast readout, for choosing a direction. Not the real thing. | [open](https://mmazco.github.io/a-currency-in-motion/palette-lab.html) | [open](https://claude.ai/code/artifact/8307c388-39a1-4089-8f58-b02d8fcd027c) |
 
 The **live pages** are open to anyone with the link. The **Claude artifacts**
 are private until shared from the share menu on each one, but they take
