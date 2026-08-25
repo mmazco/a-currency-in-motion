@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>USDT0 on Stellar — visuals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#E4E3CB; --paper-2:#F0EFDD;
+  --ink:#16170F; --ink-2:#4E503C; --ink-3:#63654F;
+  --rule:#A3A180; --accent:#155446;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#14150F; --paper-2:#20221A;
+    --ink:#E6E4CC; --ink-2:#A9A991; --ink-3:#878873;
+    --rule:#565839; --accent:#4FB394;
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:16px; line-height:1.6;
+}
+.wrap{max-width:760px; margin:0 auto; padding:64px 24px 96px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 18px;
+}
+h1{
+  font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif; font-weight:600;
+  font-size:clamp(34px,6vw,52px); line-height:1.05; letter-spacing:-.015em;
+  margin:0 0 16px; max-width:16ch;
+}
+.lede{color:var(--ink-2); max-width:58ch; margin:0 0 40px}
+a.card{
+  display:block; text-decoration:none; color:inherit;
+  border:1px solid var(--rule); background:var(--paper-2);
+  padding:22px 24px; margin-bottom:16px;
+  transition:border-color .15s ease;
+}
+a.card:hover{border-color:var(--accent)}
+a.card h2{
+  font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif; font-weight:600;
+  font-size:24px; margin:0 0 6px; color:var(--accent);
+}
+a.card p{margin:0; color:var(--ink-2); font-size:15px}
+.note{
+  border-left:2px solid var(--rule); padding-left:14px; margin:40px 0 0;
+  font-size:14px; color:var(--ink-2);
+}
+.note b{color:var(--ink); font-weight:500}
+.foot{
+  margin-top:44px; border-top:1px solid var(--rule); padding-top:12px;
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-3);
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Stellar Development Foundation</p>
+  <h1>USDT0 on Stellar</h1>
+  <p class="lede">Working files for the USDT0 release page. Both are single
+  self-contained HTML documents &mdash; no build step, no dependencies.</p>
+
+  <a class="card" href="usdt0-atlas.html">
+    <h2>The page &rarr;</h2>
+    <p>Arrival, Access, Day one, Deploy. This is the version under review.</p>
+  </a>
+
+  <a class="card" href="palette-lab.html">
+    <h2>Palette lab &rarr;</h2>
+    <p>The same page with a live colour switcher and contrast readout, for
+    choosing a direction. Not the real thing.</p>
+  </a>
+
+  <p class="note"><b>Draft, for review.</b> Three figures are still unconfirmed
+  with the team: the network count, total moved via USDT0, and the claim about
+  how widely USDT is held. Treat the copy as provisional until those land.</p>
+
+  <div class="foot">
+    <span>Draft &mdash; for review</span>
+    <span>Target: developers.stellar.org/releases/usdt0</span>
+  </div>
+</div>
+</body>
+</html>

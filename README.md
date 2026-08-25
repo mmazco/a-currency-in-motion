@@ -1,9 +1,15 @@
 # USDT0 visuals
 
+> **Draft, for review.** Three figures are still unconfirmed with the team —
+> the network count, total moved via USDT0, and how widely USDT is held.
+> Treat the copy as provisional. Final version ships as a PR to
+> [stellar-docs](https://github.com/stellar/stellar-docs).
+
 Single self-contained pages, no build step. Open the HTML file directly.
 
 | File | What it is |
 |---|---|
+| `index.html` | Contents page, so the Pages URL lands somewhere. |
 | `usdt0-atlas.html` | The page. Currently out for review. |
 | `palette-lab.html` | Same page + a live palette switcher, for choosing a colour direction. Not for sharing as the real thing. |
 
