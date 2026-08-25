@@ -5,12 +5,22 @@
 > Treat the copy as provisional. Final version ships as a PR to
 > [stellar-docs](https://github.com/stellar/stellar-docs).
 
-Single self-contained pages, no build step. Open the HTML file directly.
+Single self-contained pages, no build step — open either HTML file directly,
+or use a link below.
 
-| File | What it is |
-|---|---|
-| **[usdt0-atlas.html](usdt0-atlas.html)** | The page. Currently out for review. |
-| **[palette-lab.html](palette-lab.html)** | Same page + a live palette switcher, for choosing a colour direction. Not for sharing as the real thing. |
+## Where to view
+
+| | Live page | Claude artifact |
+|---|---|---|
+| **The page** — Arrival, Access, Day one, Deploy. The version under review. | [open](https://mmazco.github.io/usdt0-visuals/usdt0-atlas.html) | [open](https://claude.ai/code/artifact/0c7e58a1-8583-4261-8b89-0026f56e6465) |
+| **Palette lab** — the same page with a live colour switcher and contrast readout, for choosing a direction. Not the real thing. | [open](https://mmazco.github.io/usdt0-visuals/palette-lab.html) | [open](https://claude.ai/code/artifact/8307c388-39a1-4089-8f58-b02d8fcd027c) |
+
+The **live pages** are open to anyone with the link. The **Claude artifacts**
+are private until shared from the share menu on each one, but they take
+inline comments — use those if you want feedback threaded against the copy.
+
+Source files: [`usdt0-atlas.html`](usdt0-atlas.html) &middot;
+[`palette-lab.html`](palette-lab.html)
 
 ## Palette
 
