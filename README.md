@@ -1,4 +1,4 @@
-# A currency in motion
+# a currency in motion
 
 > **Draft, for review.** Three figures are still unconfirmed with the team —
 > the network count, total moved via USDT0, and how widely USDT is held.
