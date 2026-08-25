@@ -17,7 +17,6 @@
     --ink:#E6E4CC; --ink-2:#A9A991; --ink-3:#878873;
     --rule:#4C4E36; --rule-2:#33351F;
     --accent:#4FB394; --accent-soft:#4FB39422;
-  --accent-ink:#4FB394; --on-accent:#14150F;
     --accent-ink:#4FB394; --on-accent:#14150F;
   }
 }
@@ -26,6 +25,7 @@
   --ink:#E6E4CC; --ink-2:#A9A991; --ink-3:#878873;
   --rule:#4C4E36; --rule-2:#33351F;
   --accent:#4FB394; --accent-soft:#4FB39422;
+  --accent-ink:#4FB394; --on-accent:#14150F;
 }
 
 *{box-sizing:border-box}
@@ -370,12 +370,12 @@ dd a code{border-bottom:0}
   --accent:#1741C4; --accent-soft:#1741C41A;
   --accent-ink:#1741C4; --on-accent:#FFFFFF;
 }
-:root[data-palette="sand"]{
-  --paper:#D6D3C4; --paper-2:#E2E0D4; --paper-3:#CBC8B8;
-  --ink:#141310; --ink-2:#494639; --ink-3:#54513F;
-  --rule:#A8A492; --rule-2:#BDB9A8;
-  --accent:#0F4034; --accent-soft:#0F40341A;
-  --accent-ink:#0F4034; --on-accent:#D6D3C4;
+:root[data-palette="night"]{
+  --paper:#0F0F0F; --paper-2:#191919; --paper-3:#080808;
+  --ink:#F5F5F0; --ink-2:#B8B8B0; --ink-3:#8E8E86;
+  --rule:#474747; --rule-2:#333333;
+  --accent:#FDDA24; --accent-soft:#FDDA2422;
+  --accent-ink:#FDDA24; --on-accent:#0F0F0F;
 }
 
 /* ---- the switcher itself ---- */
@@ -838,7 +838,7 @@ select(-1);
 
 /* ================= PALETTE LAB ================= */
 (function(){
-  const NAMES = [["drafting","Drafting"],["stellar","Stellar"],["studio","Studio"],["sand","Sand"]];
+  const NAMES = [["drafting","Drafting"],["stellar","Stellar"],["studio","Studio"],["night","Night"]];
   const root = document.documentElement;
 
   const lab = document.createElement('div');
