@@ -24,17 +24,33 @@ Source files: [`usdt0-atlas.html`](usdt0-atlas.html) &middot;
 
 ## Palette
 
-The whole colour system is CSS custom properties in `:root` — a theme is
-about a dozen values. Three accent roles, because they are not
-interchangeable:
+The page ships in the **Stellar palette**, light and dark, with a toggle in
+the footer. No stored choice means it follows the reader's OS; clicking sets
+an explicit override that persists.
 
-- `--accent` — fills, strokes, borders
-- `--accent-ink` — accent-coloured **text** on the page ground
+| | Light | Dark |
+|---|---|---|
+| Ground | `#FFFFFF` | `#0F0F0F` |
+| Body text | `#0F0F0F` | `#F5F5F0` |
+| Accent | `#FDDA24` | `#FDDA24` |
+| Accent as **text** | `#7A5C00` | `#FDDA24` |
+| Worst contrast | 5.33 | 5.81 |
+
+The whole system is CSS custom properties in `:root`. Three accent roles,
+because they are not interchangeable:
+
+- `--accent` — **fills only**, and only areas big enough to read as a shape
+- `--accent-ink` — accent-coloured **text, strokes, borders and small marks**
 - `--on-accent` — text sitting **on top of** an accent fill
 
-That split exists so a palette can use a colour that works as a fill but
-not as type. Stellar's brand yellow `#FDDA24` is the case in point: fine
-behind black text, unusable as a link colour.
+That split is what makes a yellow accent possible at all. `#FDDA24` on white
+is about 1.5:1 — fine behind black text, unusable as type or as a hairline.
+So in light mode the yellow fills the nav tick and the folder tab, while
+anything thin or textual uses the ochre. On black the same yellow reaches
+13.9:1 and can do both, which is why dark mode looks bolder.
+
+`palette-lab.html` keeps all five explored directions — Drafting, Stellar,
+Studio, and dark variants of the first two — and is not the page.
 
 ## Contrast
 
