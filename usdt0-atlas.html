@@ -350,17 +350,21 @@ dd a code{border-bottom:0}
 .themetog:hover{color:var(--accent-ink);border-bottom-color:var(--accent-ink)}
 .themetog:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px}
 .themetog svg{width:13px;height:13px;display:block}
-.themetog .sun,.themetog .t-light{display:none}
-:root[data-theme="dark"] .themetog .sun,
-:root[data-theme="dark"] .themetog .t-light{display:block}
-:root[data-theme="dark"] .themetog .moon,
-:root[data-theme="dark"] .themetog .t-dark{display:none}
+.themetog .sun{display:none}
+:root[data-theme="dark"] .themetog .sun{display:block}
+:root[data-theme="dark"] .themetog .moon{display:none}
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .themetog .sun,
-  :root:not([data-theme="light"]) .themetog .t-light{display:block}
-  :root:not([data-theme="light"]) .themetog .moon,
-  :root:not([data-theme="light"]) .themetog .t-dark{display:none}
+  :root:not([data-theme="light"]) .themetog .sun{display:block}
+  :root:not([data-theme="light"]) .themetog .moon{display:none}
 }
+.foot-icons{display:inline-flex;align-items:center;gap:13px}
+.xlink{
+  display:inline-flex;align-items:center;color:var(--ink-3);
+  border-bottom:1px solid transparent;
+}
+.xlink:hover{color:var(--accent-ink)}
+.xlink:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px}
+.xlink svg{width:13px;height:13px;display:block}
 
 .foot{
   margin-top:26px;border-top:1px solid var(--rule);padding-top:10px;
@@ -572,6 +576,7 @@ dd a code{border-bottom:0}
     <span>Stellar Development Foundation</span>
     <span class="foot-r">
       <span>Draft — for review</span>
+      <span class="foot-icons">
       <button class="themetog" id="themetog" type="button" aria-pressed="false">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -582,8 +587,15 @@ dd a code{border-bottom:0}
           <circle cx="12" cy="12" r="4.2"/>
           <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
         </svg>
-        <span class="t-dark" aria-hidden="true">Dark</span><span class="t-light" aria-hidden="true">Light</span>
       </button>
+      <a class="xlink" href="https://x.com/BuildOnStellar" target="_blank"
+         rel="noopener noreferrer" aria-label="Build on Stellar on X"
+         title="Build on Stellar on X">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+      </span>
     </span>
   </div>
 </div>
@@ -839,7 +851,9 @@ select(-1);
   function paint(){
     const dark = showing() === 'dark';
     btn.setAttribute('aria-pressed', String(dark));
-    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    const name = dark ? 'Switch to light mode' : 'Switch to dark mode';
+    btn.setAttribute('aria-label', name);
+    btn.setAttribute('title', name);
   }
 
   const saved = store.get();
