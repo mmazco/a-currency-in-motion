@@ -636,7 +636,7 @@ const LAYERS = [
     unlocks:"Hold working balances, pre-fund corridor partners, sweep float between markets — and hold dollars where the local currency isn't a store of value.",
     who:"Businesses paying across borders, corridor partners managing float, exchanges holding settlement balances.",
     build:"Multi-sig and <a href='https://developers.stellar.org/docs/build/guides/transactions/sponsored-reserves' target='_blank' rel='noopener noreferrer'>sponsored reserves</a> for custody, Stellar Smart Contracts (Soroban) for scheduled or conditional disbursement.",
-    caveat:"<b>Clawback and freeze are enabled on this asset</b>, behind a multisig rather than a single key. A trustline can be revoked or a <a href='https://developers.stellar.org/docs/build/guides/transactions/clawbacks' target='_blank' rel='noopener noreferrer'>balance clawed back</a>, which limits what a treasury contract can promise. Holding it needs no authorization."
+    caveat:"<b>This asset sets <code>revocable</code> and <code>clawback_enabled</code></b>, behind a multisig rather than a single key. A trustline can be revoked or a <a href='https://developers.stellar.org/docs/build/guides/transactions/clawbacks' target='_blank' rel='noopener noreferrer'>balance clawed back</a>, which limits what a treasury contract can promise. <code>auth_required</code> is not set, so anyone can hold it."
   },
   {
     tag:"Collateral",
