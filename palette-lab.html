@@ -177,10 +177,11 @@ dd a code{border-bottom:0}
   text-align:left;cursor:pointer;
   transition:transform .16s ease;
 }
-.fo{position:absolute;inset:0;width:100%;height:100%}
+.fo{position:absolute;inset:0;width:100%;height:100%;shape-rendering:geometricPrecision}
 .fo-body{
-  fill:var(--paper);stroke:var(--ink-2);stroke-width:1.4;
-  vector-effect:non-scaling-stroke;transition:stroke .16s ease,stroke-width .16s ease;
+  fill:var(--paper);stroke:var(--ink-2);stroke-width:1.5;
+  vector-effect:non-scaling-stroke;stroke-linejoin:round;
+  transition:stroke .16s ease,stroke-width .16s ease;
 }
 .fo-tab{fill:none;transition:fill .16s ease}
 .fname{
@@ -194,16 +195,16 @@ dd a code{border-bottom:0}
 .file:hover .fo-body{stroke:var(--accent)}
 .file:hover .fname{color:var(--accent-ink)}
 .file:focus-visible{outline:none}
-.file:focus-visible .fo-body{stroke:var(--accent);stroke-width:2.2}
+.file:focus-visible .fo-body{stroke:var(--accent);stroke-width:2}
 .file:focus-visible .fname{color:var(--accent-ink)}
-.file[aria-selected="true"] .fo-body{stroke:var(--accent);stroke-width:2.2}
+.file[aria-selected="true"] .fo-body{stroke:var(--accent);stroke-width:2}
 .file[aria-selected="true"] .fo-tab{fill:var(--accent)}
 .file[aria-selected="true"] .fname{color:var(--on-accent)}
 .file[aria-selected="true"]:not(.cover){transform:translate(-3%,2.5%)}
 
 /* the cover: the folder these sit in */
 .cover .fo-body{
-  fill:var(--paper);stroke:var(--accent);stroke-width:2.2;
+  fill:var(--paper);stroke:var(--accent);stroke-width:2;
 }
 .cover .fo-tint{fill:var(--accent);opacity:.10}
 .cover .fname{color:var(--accent-ink)}
