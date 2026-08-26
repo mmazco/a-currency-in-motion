@@ -178,12 +178,15 @@ dd a code{border-bottom:0}
   transition:transform .16s ease;
 }
 .fo{position:absolute;inset:0;width:100%;height:100%;shape-rendering:geometricPrecision}
-.fo-body{
-  fill:var(--paper);stroke:var(--ink-2);stroke-width:1.5;
+/* fill and outline are separate paths: the tab is painted between them, so
+   the silhouette's stroke is drawn last and never gets covered. */
+.fo-body{fill:var(--paper)}
+.fo-tab{fill:none;transition:fill .16s ease}
+.fo-edge{
+  fill:none;stroke:var(--ink-2);stroke-width:1.5;
   vector-effect:non-scaling-stroke;stroke-linejoin:round;
   transition:stroke .16s ease,stroke-width .16s ease;
 }
-.fo-tab{fill:none;transition:fill .16s ease}
 .fname{
   position:absolute;left:0;top:0;width:40.97%;height:12.63%;
   padding:0 5% 0 5.5%;display:flex;align-items:center;
@@ -192,20 +195,21 @@ dd a code{border-bottom:0}
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   transition:color .16s ease;
 }
-.file:hover .fo-body{stroke:var(--accent-ink)}
+.file:hover .fo-edge{stroke:var(--accent-ink)}
 .file:hover .fname{color:var(--accent-ink)}
 .file:focus-visible{outline:none}
-.file:focus-visible .fo-body{stroke:var(--accent-ink);stroke-width:2}
+.file:focus-visible .fo-edge{stroke:var(--accent-ink);stroke-width:2}
 .file:focus-visible .fname{color:var(--accent-ink)}
-.file[aria-selected="true"] .fo-body{stroke:var(--accent-ink);stroke-width:2}
+.file[aria-selected="true"] .fo-edge{stroke:var(--accent-ink);stroke-width:2}
 .file[aria-selected="true"] .fo-tab{fill:var(--accent)}
 .file[aria-selected="true"] .fname{color:var(--on-accent)}
 .file[aria-selected="true"]:not(.cover){transform:translate(-3%,2.5%)}
 
 /* the cover: the folder these sit in */
 .cover .fo-body{
-  fill:var(--paper);stroke:var(--accent-ink);stroke-width:2;
+  fill:var(--paper);
 }
+.cover .fo-edge{stroke:var(--accent-ink);stroke-width:2}
 .cover .fo-tint{fill:var(--accent);opacity:.10}
 .cover .fname{color:var(--accent-ink)}
 .cover[aria-selected="true"] .fo-tab{fill:var(--accent)}
@@ -659,6 +663,7 @@ const shape = extra => `
   <svg class="fo" viewBox="0 0 288 190" preserveAspectRatio="none" aria-hidden="true">
     <path class="fo-body" d="${FO_BODY}"/>${extra}
     <path class="fo-tab" d="${FO_TAB}"/>
+    <path class="fo-edge" d="${FO_BODY}"/>
   </svg>`;
 
 stack.innerHTML =
