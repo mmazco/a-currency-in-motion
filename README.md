@@ -52,6 +52,23 @@ anything thin or textual uses the ochre. On black the same yellow reaches
 `palette-lab.html` keeps all five explored directions — Drafting, Stellar,
 Studio, and dark variants of the first two — and is not the page.
 
+## Type
+
+| | |
+|---|---|
+| **Inter** 400/500 | All body copy |
+| **IBM Plex Sans Condensed** 600 | Headlines, layer headings, venue names |
+| **IBM Plex Mono** 400/500 | Labels, identifiers, spec strip, sources, diagram |
+
+Inter matches stellar.org's primary face. Mono carries most of the page's
+chrome, which is what makes it read as a technical document rather than a
+marketing page. All three are open source (Inter under the SIL OFL), so
+nothing blocks shipping them.
+
+Note the fonts load from `fonts.googleapis.com` — the only thing in these
+files that reaches outside. If the docs site self-hosts or forbids
+third-party font hosting, that link is the one thing to swap before the PR.
+
 ## Contrast
 
 Every candidate palette clears WCAG AA (4.5:1) on body text, secondary
