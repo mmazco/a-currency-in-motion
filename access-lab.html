@@ -242,7 +242,7 @@ dd a code{border-bottom:0}
 
 /* ---- access lab: five files shown at once, as benefits under the feature ---- */
 .files{
-  border-top:1px solid var(--rule); margin-top:30px;
+  border-top:1px solid var(--rule); margin-top:34px;
   display:grid; grid-template-columns:repeat(5,minmax(0,1fr));
 }
 .fcol{padding:18px 20px 4px; border-right:1px solid var(--rule);
@@ -266,10 +266,6 @@ dd a code{border-bottom:0}
 .fbuild b{
   display:block; font-weight:400; letter-spacing:.14em; text-transform:uppercase;
   font-size:9px; margin-bottom:4px;
-}
-.files-head{
-  font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--ink-3); margin-top:34px;
 }
 @media (max-width:1000px){
   .files{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -540,7 +536,6 @@ dd a code{border-bottom:0}
       <div class="desc" id="desc"></div>
     </div>
     <div class="fig-files">
-      <div class="files-head">What is in each file</div>
       <div class="files" id="files"></div>
       <div class="notes-head">Before you build</div>
       <div class="notes" id="notes"></div>
