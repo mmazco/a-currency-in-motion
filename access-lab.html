@@ -282,7 +282,9 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 }
 
 .dep-note b{color:var(--ink);font-weight:500}
-.dep-note.tip{display:flex;gap:9px;align-items:flex-start}
+/* no rule above the tip: it reads as a continuation of the note before it,
+   not a third band. The preceding note's bottom padding is the only gap. */
+.dep-note.tip{display:flex;gap:9px;align-items:flex-start;border-top:0;padding-top:0}
 .tip-mark{flex:0 0 auto;font-size:13px;line-height:1.55}
 .dep-note{
   border-top:1px solid var(--rule); padding:12px 20px;
