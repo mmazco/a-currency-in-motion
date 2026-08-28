@@ -682,6 +682,11 @@ const FOLDER = {
   start:"An asset with utility for cross-border payments, payouts, remittance solutions and more."
 };
 
+// Reading order across the section: the stack, the columns and the notes all
+// follow this, so priority is changed in one place.
+const ORDER = ["Payments","Treasury","Collateral","Distribution","Liquidity"];
+const inOrder = arr => ORDER.map(t => arr.find(x => x.tag === t)).filter(Boolean);
+
 const LAYERS = [
   {
     tag:"Liquidity",
@@ -766,7 +771,7 @@ const shape = extra => `
 
 // the stack is now a picture, not a control — every file is written out below it
 stack.innerHTML =
-  LAYERS.map((L,i) =>
+  inOrder(LAYERS).map((L,i) =>
     `<div class="file" style="left:${(5-i)*STEP_X}%;top:${i*STEP_Y}%;z-index:${i+1}">
        ${shape('')}<span class="fname">${L.tag.toUpperCase()}</span>
      </div>`).join('') +
@@ -789,7 +794,7 @@ desc.innerHTML =
     '<div><dt>Where to start</dt><dd>'+FOLDER.start+'</dd></div>'+
   '</dl>';
 
-document.getElementById('files').innerHTML = FILES.map(f => `
+document.getElementById('files').innerHTML = inOrder(FILES).map(f => `
   <div class="fcol">
     <div class="ftag">${f.tag}</div>
     <h4 class="fhead">${f.head}</h4>
