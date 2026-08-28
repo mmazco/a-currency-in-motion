@@ -1,7 +1,10 @@
 <title>USDT0 Atlas</title>
+<!-- This page is a copy of access-lab.html, which is the file the Claude
+     artifact publishes from. Change access-lab.html, then copy it here so
+     the two cannot drift. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=Inter:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap">
 
 <style>
 :root{
@@ -60,12 +63,18 @@ figure[id],section[id]{scroll-margin-top:64px}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 
+/* Inter needs display tuning the condensed face did not: more negative
+   tracking, and a little more leading for its taller x-height and longer
+   descenders. The accent is a block so the colour change lands on the line
+   break instead of stranding a word at the end of line one. */
 h1{
-  font-family:"IBM Plex Sans Condensed","Inter",sans-serif;
-  font-weight:600;font-size:clamp(34px,5.4vw,58px);line-height:1.02;
-  letter-spacing:-.015em;margin:26px 0 10px;text-wrap:balance;max-width:22ch;
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  font-weight:600;font-size:clamp(34px,5.4vw,58px);line-height:1.06;
+  letter-spacing:-.03em;margin:26px 0 10px;max-width:24ch;text-wrap:balance;
 }
-h1 em{font-style:normal;color:var(--accent-ink)}
+/* the accent breaks on its own line, and again before "by its network" — an
+   explicit break rather than balancing, so the shape holds at every width */
+h1 em{display:block;font-style:normal;color:var(--accent-ink)}
 .deck{max-width:62ch;color:var(--ink-2);font-size:17px;margin:0 0 8px}
 .deck strong{color:var(--ink);font-weight:500}
 
@@ -87,7 +96,7 @@ svg{display:block;max-width:100%;height:auto}
 .n-box{fill:var(--paper-2);stroke:currentColor;stroke-width:1}
 .n-box.alt{fill:var(--paper-3)}
 .n-box.hot{stroke:var(--accent-ink);stroke-width:1.6;fill:var(--accent-soft)}
-.n-t{font-family:"IBM Plex Sans Condensed","Inter",sans-serif;font-weight:600;font-size:14px;fill:currentColor}
+.n-t{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:14px;fill:currentColor}
 .n-t.hot{fill:var(--accent-ink)}
 .n-s{font-family:"IBM Plex Mono",monospace;font-size:10px;fill:var(--ink-3);letter-spacing:.04em}
 .edge{stroke:currentColor;stroke-width:1;fill:none}
@@ -104,6 +113,7 @@ svg{display:block;max-width:100%;height:auto}
    down-left so every name stays readable. Clicking a name swaps the title and
    description on the left. Percentage geometry, so the stack scales instead of
    scrolling. */
+.fig-files{padding:0 40px 30px}
 .folder-fig{display:flex;gap:34px;align-items:flex-start;justify-content:center;padding:26px 40px 30px}
 
 .desc{flex:1 1 0;min-width:0;max-width:620px;display:flex;flex-direction:column;gap:12px}
@@ -112,9 +122,9 @@ svg{display:block;max-width:100%;height:auto}
   text-transform:uppercase;color:var(--accent-ink);
 }
 .d-head{
-  font-family:"IBM Plex Sans Condensed","Inter",sans-serif;font-weight:600;
-  font-size:clamp(24px,2.6vw,36px);line-height:1.08;margin:0;
-  letter-spacing:-.015em;text-wrap:balance;color:var(--ink);
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:600;
+  font-size:clamp(24px,2.6vw,36px);line-height:1.1;margin:0;
+  letter-spacing:-.022em;text-wrap:balance;color:var(--ink);
 }
 .d-claim{margin:0;font-size:15.5px;color:var(--ink);max-width:56ch}
 .d-back{
@@ -143,17 +153,18 @@ dd code{
 .caveat b{color:var(--ink);font-weight:500}
 
 /* source links: quiet by default, accent on hover — a claim you can check */
-dd a,.id-note a,.only p a,.spec dd a{
+dd a,.id-note a,.only p a,.spec dd a,.dep-note a,.ncopy a{
   color:inherit;text-decoration:none;
   border-bottom:1px solid var(--rule);
 }
-dd a:hover,.id-note a:hover,.only p a:hover,.spec dd a:hover{
+dd a:hover,.id-note a:hover,.only p a:hover,.spec dd a:hover,.dep-note a:hover,.ncopy a:hover{
   color:var(--accent-ink);border-bottom-color:var(--accent-ink);
 }
-dd a:focus-visible,.id-note a:focus-visible,.only p a:focus-visible,.spec dd a:focus-visible{
+dd a:focus-visible,.id-note a:focus-visible,.only p a:focus-visible,.spec dd a:focus-visible,
+.dep-note a:focus-visible,.ncopy a:focus-visible{
   outline:2px solid var(--accent-ink);outline-offset:2px;border-bottom-color:transparent;
 }
-dd a code{border-bottom:0}
+dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 .sources{
   margin-top:26px;border-top:1px solid var(--rule);padding-top:10px;
   display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;
@@ -169,7 +180,10 @@ dd a code{border-bottom:0}
 /* ---- the stack: folders in a folder ---- */
 /* six slots, back to front. Each folder's tab sits on the left of its top edge,
    and the down-left offset keeps every tab uncovered. */
-.stackwrap{flex:0 0 clamp(250px,40%,460px);min-width:0}
+.stackwrap{flex:0 0 clamp(250px,42%,520px);min-width:0;
+  /* the stack is shorter than the description beside it, so centre it
+     rather than let the leftover height pool at the bottom of the panel */
+  align-self:center}
 .stack{position:relative;width:100%;aspect-ratio:1.316;container-type:inline-size}
 .file{
   position:absolute;width:70.59%;height:61.29%;
@@ -216,7 +230,7 @@ dd a code{border-bottom:0}
 .cover[aria-selected="true"] .fname{color:var(--on-accent)}
 .cover-body{position:absolute;left:5.5%;right:8%;top:24%}
 .cover-name{
-  display:block;font-family:"IBM Plex Sans Condensed","Inter",sans-serif;font-weight:600;
+  display:block;font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:600;
   font-size:clamp(15px,6.1cqw,29px);line-height:1.1;color:var(--accent-ink);
   letter-spacing:-.01em;
 }
@@ -237,6 +251,55 @@ dd a code{border-bottom:0}
   .desc{width:100%;max-width:none}
   .d-claim,dd{max-width:none}
 }
+
+
+/* ---- access lab: five files shown at once, as benefits under the feature ---- */
+.files{
+  border-top:1px solid var(--rule);
+  display:grid; grid-template-columns:repeat(5,minmax(0,1fr));
+}
+.fcol{padding:18px 20px 4px; border-right:1px solid var(--rule);
+  display:flex; flex-direction:column}
+.fcol:last-child{border-right:0}
+.fcol:first-child{padding-left:0}
+.ftag{
+  font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent-ink); margin-bottom:7px;
+}
+.fhead{
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif; font-weight:600;
+  font-size:19px; line-height:1.12; letter-spacing:-.01em; color:var(--ink); margin:0 0 9px;
+}
+.fcopy{margin:0 0 14px; font-size:13.5px; line-height:1.5; color:var(--ink-2)}
+@media (max-width:1000px){
+  .files{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fcol{border-bottom:1px solid var(--rule); padding-left:20px}
+  .fcol:first-child{padding-left:20px}
+  .fcol:nth-child(2n){border-right:0}
+  .fcol:nth-last-child(-n+1){border-bottom:0}
+}
+@media (max-width:620px){
+  .files{grid-template-columns:minmax(0,1fr)}
+  .fcol{border-right:0}
+  .fcol:last-child{border-bottom:0}
+}
+
+.dep-note b{color:var(--ink);font-weight:500}
+.dep-note{
+  border-top:1px solid var(--rule); padding:12px 20px;
+  font-size:13.5px; line-height:1.55; color:var(--ink-2);
+}
+.notes-sec{margin:34px 0 0;border:1px solid var(--rule);background:var(--paper-2)}
+.notes-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:18px}
+.notes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 40px}
+.note{display:flex; gap:12px}
+.ntag{
+  flex:0 0 82px; font-family:"IBM Plex Mono",monospace; font-size:9.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); padding-top:3px;
+}
+.ncopy{margin:0; font-size:13px; line-height:1.55; color:var(--ink-2)}
+.ncopy b{color:var(--ink);font-weight:500}
+@media (max-width:820px){ .notes{grid-template-columns:minmax(0,1fr)} }
 
 /* ---------- day one ---------- */
 .dayone{margin:34px 0 0;border:1px solid var(--rule);background:var(--paper-2)}
@@ -263,7 +326,7 @@ dd a code{border-bottom:0}
 
 .only{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px 26px}
 .only h4{
-  margin:0 0 6px;font-family:"IBM Plex Sans Condensed","Inter",sans-serif;font-weight:600;
+  margin:0 0 6px;font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:600;
   font-size:18px;line-height:1.15;color:var(--ink);
 }
 .only p{margin:0;font-size:13.5px;color:var(--ink-2)}
@@ -387,10 +450,11 @@ dd a code{border-bottom:0}
       <a class="tick" href="#access" aria-label="Access" title="Access"></a>
       <a class="tick" href="#dayone" aria-label="Day one" title="Day one"></a>
       <a class="tick" href="#deploy" aria-label="Deploy" title="Deploy"></a>
+      <a class="tick" href="#build" aria-label="Before you build" title="Before you build"></a>
     </nav>
   </div>
 
-  <h1>A currency in motion <em>shouldn&rsquo;t be limited by its network</em></h1>
+  <h1>A currency in motion <em>shouldn&rsquo;t be limited<br>by its network</em></h1>
   <p class="deck">By now you or your users probably hold some amount of USDT on one or multiple networks.
   USDT0 connects Stellar to <strong>a unified USDT supply</strong>, allowing USDT to move across networks
   without fragmenting supply. On Stellar, USDT0 is a native asset that works with your existing
@@ -471,9 +535,12 @@ dd a code{border-bottom:0}
     <div class="fig-head"><span>Access &mdash; what USDT0 opens</span></div>
     <div class="folder-fig">
       <div class="stackwrap">
-        <div class="stack" id="stack" role="tablist" aria-label="What USDT0 opens"></div>
+        <div class="stack" id="stack" role="img"></div>
       </div>
-      <div class="desc" id="desc" aria-live="polite"></div>
+      <div class="desc" id="desc"></div>
+    </div>
+    <div class="fig-files">
+      <div class="files" id="files"></div>
     </div>
   </figure>
 
@@ -484,7 +551,7 @@ dd a code{border-bottom:0}
     </div>
     <div class="d1-body">
       <p class="d1-lead">You can access USDT0 today across these partners on Stellar.
-      More to come on a rolling basis post-launch.</p>
+      More to come on a rolling basis.</p>
 
       <div class="venues">
         <div class="venue">
@@ -550,6 +617,15 @@ dd a code{border-bottom:0}
          href="https://docs.usdt0.to/technical-documentation/deployments?q=stellar">Contract deployments on docs.usdt0.to &rarr;</a>
 
     </div>
+    <div class="dep-note"><b><a href='https://stellar.expert/explorer/public/asset/USDT0-GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q' target='_blank' rel='noopener noreferrer'>This asset</a> sets <code>revocable</code> and <code>clawback_enabled</code></b>, behind a multisig rather than a single key. A trustline can be revoked or a <a href='https://developers.stellar.org/docs/build/guides/transactions/clawbacks' target='_blank' rel='noopener noreferrer'>balance clawed back</a>, which limits what a treasury contract can promise. <code>auth_required</code> is not set, so anyone can hold it.</div>
+  </section>
+
+  <section class="notes-sec" id="build" aria-labelledby="bd-h">
+    <div class="dep-head"><span id="bd-h">Before you build &mdash; requirements and limitations</span></div>
+    <div class="notes-body">
+      <p class="dep-lead">What USDT0 on Stellar requires for integration.</p>
+      <div class="notes" id="notes"></div>
+    </div>
   </section>
 
   <dl class="spec">
@@ -603,12 +679,16 @@ dd a code{border-bottom:0}
 const FOLDER = {
   name:"USDT0",
   head:"Access to a new economy",
-  claim:"Rather than adding another stablecoin, this changes how liquidity behaves on Stellar — one dollar asset, shared with every network it touches.",
-  unlocks:"Access to the same USDT0 liquidity layer as the other networks it connects, rather than a separate pool of USDT that exists only on Stellar.",
-  how:"USDT0 is an omnichain liquidity layer for USDT, operated by Everdawn Labs on LayerZero\u2019s OFT standard: issued natively on each network against one unified supply escrowed on Ethereum. No wrappers.",
-  inside:"Liquidity, payments, treasury, collateral, distribution.",
-  start:"Payments — the rails and the wallets are live today."
+  claim:"The asset that brings access to new corridors, counterparties, and financial use cases on Stellar.",
+  unlocks:"Access to the same circulation supply as other networks it connects with.",
+  how:"USDT0 is what makes USDT interoperable across networks, operated by <a href='https://everdawn.to/' target='_blank' rel='noopener noreferrer'>Everdawn Labs</a> on LayerZero\u2019s OFT standard. Issued natively on each network against one unified supply on Ethereum.",
+  start:"An asset with utility for cross-border payments, payouts, remittance solutions and more."
 };
+
+// Reading order across the section: the stack, the columns and the notes all
+// follow this, so priority is changed in one place.
+const ORDER = ["Payments","Treasury","Collateral","Distribution","Liquidity"];
+const inOrder = arr => ORDER.map(t => arr.find(x => x.tag === t)).filter(Boolean);
 
 const LAYERS = [
   {
@@ -622,12 +702,12 @@ const LAYERS = [
   },
   {
     tag:"Payments",
-    head:"A dollar people already hold",
+    head:"An asset with real-world utility",
     claim:"USDT is the stablecoin most of the world's crypto users already hold. Stellar is where sending it costs a fraction of a cent and settles in about five seconds.",
     unlocks:"Cross-border and B2B settlement, payouts and remittances, denominated in the dollar the recipient already keeps — not one they have to be taught.",
     who:"PSPs and fintechs building cross-border payments, payouts, and remittance solutions.",
     build:"<a href='https://developers.stellar.org/docs/learn/fundamentals/transactions/list-of-operations' target='_blank' rel='noopener noreferrer'>Path payments</a> to convert at send time, <a href='https://developers.stellar.org/docs/platforms/anchor-platform/sep-guide/sep31' target='_blank' rel='noopener noreferrer'><code>SEP-31</code></a> for regulated cross-border, <a href='https://developers.stellar.org/docs/platforms/anchor-platform/sep-guide/sep6' target='_blank' rel='noopener noreferrer'><code>SEP-6</code></a> / <a href='https://developers.stellar.org/docs/platforms/anchor-platform/sep-guide/sep24' target='_blank' rel='noopener noreferrer'><code>SEP-24</code></a> for on- and off-ramps, <a href='https://developers.stellar.org/docs/learn/fundamentals/stellar-ecosystem-proposals' target='_blank' rel='noopener noreferrer'><code>SEP-12</code></a> for KYC hand-off.",
-    caveat:"<b>A trustline has to exist before the first payment lands.</b> Sending USDT0 to an account without one fails. If you custody for users, create it during onboarding &mdash; <a href='https://developers.stellar.org/docs/build/guides/transactions/sponsored-reserves' target='_blank' rel='noopener noreferrer'>sponsored reserves</a> can cover the reserve."
+    caveat:"<b>A trustline has to exist before the first payment lands.</b> Sending USDT0 to an account that has no USDT0 trustline fails with <a href='https://developers.stellar.org/network/horizon/errors/result-codes/operation-specific/payment' target='_blank' rel='noopener noreferrer'><code>op_no_trust</code></a>. If you custody for users, create it during onboarding &mdash; <a href='https://developers.stellar.org/docs/build/guides/transactions/sponsored-reserves' target='_blank' rel='noopener noreferrer'>sponsored reserves</a> can cover the reserve."
   },
   {
     tag:"Treasury",
@@ -649,7 +729,7 @@ const LAYERS = [
   },
   {
     tag:"Distribution",
-    head:"One dollar, many doors",
+    head:"One asset, many doors",
     claim:"Every integration is an entrance. Because there is one USDT0 and not a wrapped variant per venue, reach compounds instead of fragmenting.",
     unlocks:"Exchanges, wallets, and fintechs that list USDT0 each become a way into Stellar's payment and financial rails.",
     who:"Anyone whose users already hold USDT, and any regional settlement partner who needs one asset to standardize on.",
@@ -670,6 +750,21 @@ const FO_TAB  = "M 8 0 H 110 A 8 8 0 0 1 118 8 V 25 H 0 V 8 A 8 8 0 0 1 8 0 Z";
 const stack = document.getElementById('stack');
 const desc  = document.getElementById('desc');
 
+// Short benefit copy per file. The full unlocks / who / build text lives in the
+// live page; this view trades depth for seeing all five at once.
+const FILES = [
+  { tag:"Liquidity",    head:"Stellar joins the USDT market",
+    copy:"USDT0 holders on Stellar now have access to USDT in circulation, removing the liquidity cold start friction for applications." },
+  { tag:"Payments",     head:"An asset with real-world utility",
+    copy:"Moving value across markets with cross-border payments, payouts, and remittance solutions with an asset many already use." },
+  { tag:"Treasury",     head:"Treasury and fund management workflows",
+    copy:"Products that hold working balances, or keep dollars where the local currency isn&rsquo;t a store of value." },
+  { tag:"Collateral",   head:"Doing a second job",
+    copy:"Listed as a borrowable asset, so tokenized real-world collateral has a familiar dollar to borrow against." },
+  { tag:"Distribution", head:"One asset, many doors",
+    copy:"Every exchange, wallet and fintech that lists it becomes an entrance to Stellar&rsquo;s rails." }
+];
+
 const shape = extra => `
   <svg class="fo" viewBox="0 0 288 190" preserveAspectRatio="none" aria-hidden="true">
     <path class="fo-body" d="${FO_BODY}"/>${extra}
@@ -677,68 +772,73 @@ const shape = extra => `
     <path class="fo-edge" d="${FO_BODY}"/>
   </svg>`;
 
+// the stack is now a picture, not a control — every file is written out below it
+// generated, so it cannot drift out of step with ORDER the way a hand-written
+// label did
+stack.setAttribute('aria-label',
+  `A ${FOLDER.name} folder, its cover in front, holding five files: ` +
+  ORDER.map(t => t.toLowerCase()).join(', ') + '.');
+
+// Reversed for the stack only: the cover is front-most at the bottom, so
+// laying the files out back-to-front puts Payments directly behind it and
+// Liquidity furthest back. Read outward from the cover, the sequence is
+// USDT0, payments, treasury, collateral, distribution, liquidity — the same
+// priority the columns below use.
 stack.innerHTML =
-  LAYERS.map((L,s) =>
-    `<button class="file" role="tab" data-i="${s}" aria-selected="false"
-             style="left:${(5-s)*STEP_X}%;top:${s*STEP_Y}%;z-index:${s+1}"
-             aria-label="${L.tag}: ${L.head}">
-       ${shape('')}
-       <span class="fname">${L.tag.toUpperCase()}</span>
-     </button>`).join('') +
-  `<button class="file cover" role="tab" data-i="-1" aria-selected="true"
-           style="left:0;top:${5*STEP_Y}%;z-index:6"
-           aria-label="${FOLDER.name}: ${FOLDER.head}">
+  inOrder(LAYERS).reverse().map((L,i) =>
+    `<div class="file" style="left:${(5-i)*STEP_X}%;top:${i*STEP_Y}%;z-index:${i+1}">
+       ${shape('')}<span class="fname">${L.tag.toUpperCase()}</span>
+     </div>`).join('') +
+  `<div class="file cover" style="left:0;top:${5*STEP_Y}%;z-index:6">
      ${shape(`<path class="fo-tint" d="${FO_BODY}"/>`)}
      <span class="fname">${FOLDER.name}</span>
      <span class="cover-body">
        <span class="cover-name">${FOLDER.head}</span>
-       <span class="cover-sub">One asset &middot; one supply<br>no wrapped copies</span>
+       <span class="cover-sub">One asset &middot; one supply</span>
      </span>
-   </button>`;
+   </div>`;
 
-const files = [...stack.querySelectorAll('.file:not(.cover)')];
-const cover = stack.querySelector('.cover');
-let cur = -1;
+desc.innerHTML =
+  '<span class="d-eyebrow">'+FOLDER.name+'</span>'+
+  '<h3 class="d-head">'+FOLDER.head+'</h3>'+
+  '<p class="d-claim">'+FOLDER.claim+'</p>'+
+  '<dl>'+
+    '<div><dt>What it means</dt><dd>'+FOLDER.unlocks+'</dd></div>'+
+    '<div><dt>How it works</dt><dd>'+FOLDER.how+'</dd></div>'+
+    '<div><dt>Where to start</dt><dd>'+FOLDER.start+'</dd></div>'+
+  '</dl>';
 
-function renderFolder(){
-  desc.innerHTML =
-    '<span class="d-eyebrow">'+FOLDER.name+'</span>'+
-    '<h3 class="d-head">'+FOLDER.head+'</h3>'+
-    '<p class="d-claim">'+FOLDER.claim+'</p>'+
-    '<dl>'+
-      '<div><dt>What it means</dt><dd>'+FOLDER.unlocks+'</dd></div>'+
-      '<div><dt>How it works</dt><dd>'+FOLDER.how+'</dd></div>'+
-      '<div><dt>What is inside</dt><dd>'+FOLDER.inside+'</dd></div>'+
-      '<div><dt>Where to start</dt><dd>'+FOLDER.start+'</dd></div>'+
-    '</dl>';
-}
+document.getElementById('files').innerHTML = inOrder(FILES).map(f => `
+  <div class="fcol">
+    <div class="ftag">${f.tag}</div>
+    <h4 class="fhead">${f.head}</h4>
+    <p class="fcopy">${f.copy}</p>
+  </div>`).join('');
 
-function renderLayer(i){
-  const L = LAYERS[i];
-  desc.innerHTML =
-    '<span class="d-eyebrow">'+L.tag+'</span>'+
-    '<h3 class="d-head">'+L.head+'</h3>'+
-    '<p class="d-claim">'+L.claim+'</p>'+
-    '<dl>'+
-      '<div><dt>What it unlocks</dt><dd>'+L.unlocks+'</dd></div>'+
-      '<div><dt>Who it&rsquo;s for</dt><dd>'+L.who+'</dd></div>'+
-      '<div><dt>What you build with</dt><dd>'+L.build+'</dd></div>'+
-      '<div><dd class="caveat">'+L.caveat+'</dd></div>'+
-    '</dl>'+
-    '<button class="d-back" type="button">&uarr; Back to '+FOLDER.name+'</button>';
-  desc.querySelector('.d-back').addEventListener('click', () => select(-1));
-}
+// the caveats keep their exact review-approved wording, in their own block
+// Labelled by what each note is about. The four carried over from the file
+// panels keep their reviewed wording; the first two are sourced in the README.
+const byTag = t => (LAYERS.find(L => L.tag === t) || {}).caveat;
+const NOTES = [
+  { tag:"Trustlines", copy: byTag("Payments") },
+  { tag:"Decimals",
+    copy:"<b>The OFT reconciles a precision gap for you.</b> USDT0 on Stellar carries <a href='https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets' target='_blank' rel='noopener noreferrer'>seven decimals</a>; cross-chain transfers normalise to the OFT&rsquo;s <a href='https://docs.layerzero.network/v2/concepts/technical-reference/oft-reference' target='_blank' rel='noopener noreferrer'>six shared decimals</a>. Send 1.2345678 and 1.234567 moves; the remaining 0.0000008 is floored off as dust and refunded to you before the debit. Nothing to convert by hand &mdash; but account for it when you calculate or display an amount." },
+  { tag:"Route limits",
+    copy:"<b>A route can enforce a minimum.</b> Minimum transfer amounts are set per contract, so call <a href='https://docs.usdt0.to/technical-documentation/developer' target='_blank' rel='noopener noreferrer'><code>quoteOFT()</code></a> for the route you intend to use rather than assuming any amount will go through." },
+  { tag:"Backing",     copy: byTag("Liquidity") },
+  { tag:"Yield",       copy: byTag("Collateral") },
+  { tag:"Listings",    copy: byTag("Distribution") }
+];
+document.getElementById('notes').innerHTML = NOTES.map(n => `
+  <div class="note">
+    <div class="ntag">${n.tag}</div>
+    <p class="ncopy">${n.copy}</p>
+  </div>`).join('');
 
-function select(i){
-  cur = (i === cur) ? -1 : i;
-  files.forEach((f,j) => f.setAttribute('aria-selected', String(j===cur)));
-  cover.setAttribute('aria-selected', String(cur === -1));
-  cur === -1 ? renderFolder() : renderLayer(cur);
-}
 
 // ---------- section markers ----------
 const SECTIONS = [
-  ["arrival","Arrival"], ["access","Access"], ["dayone","Day one"], ["deploy","Deploy"]
+  ["arrival","Arrival"], ["access","Access"], ["dayone","Day one"], ["deploy","Deploy"], ["build","Before you build"]
 ];
 const secTicks = [...document.querySelectorAll('.tick')];
 
@@ -818,17 +918,7 @@ ids.querySelectorAll('.copy').forEach(btn => {
   });
 });
 
-files.forEach(f => {
   const i = +f.dataset.i;
-  f.addEventListener('click', () => select(i));
-  f.addEventListener('keydown', e => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowLeft'){  e.preventDefault(); files[(i+1)%5].focus(); }
-    if (e.key === 'ArrowUp'   || e.key === 'ArrowRight'){ e.preventDefault(); files[(i+4)%5].focus(); }
-  });
-});
-cover.addEventListener('click', () => select(-1));
-
-select(-1);
 
 // ---------- theme toggle ----------
 // No stored choice means follow the OS. Clicking sets an explicit override,

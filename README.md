@@ -12,14 +12,21 @@ or use a link below.
 
 | | Live page | Claude artifact |
 |---|---|---|
-| **The page** — Arrival, Access, Day one, Deploy. The version under review. | [open](https://mmazco.github.io/a-currency-in-motion/usdt0-atlas.html) | [open](https://claude.ai/code/artifact/0c7e58a1-8583-4261-8b89-0026f56e6465) |
+| **The page** — Arrival, Access, Day one, Deploy, Before you build. The version under review. | [open](https://mmazco.github.io/a-currency-in-motion/usdt0-atlas.html) | [open](https://claude.ai/code/artifact/bcb22894-4340-4f73-9730-0d4b6adc49fa) |
 | **Palette lab** — the same page with a live colour switcher and contrast readout, for choosing a direction. Not the real thing. | [open](https://mmazco.github.io/a-currency-in-motion/palette-lab.html) | [open](https://claude.ai/code/artifact/8307c388-39a1-4089-8f58-b02d8fcd027c) |
 
 The **live pages** are open to anyone with the link. The **Claude artifacts**
 are private until shared from the share menu on each one, but they take
 inline comments — use those if you want feedback threaded against the copy.
 
-Source files: [`usdt0-atlas.html`](usdt0-atlas.html) &middot;
+`usdt0-atlas.html` is a copy of `access-lab.html`, which is the file the
+artifact publishes from. Edit `access-lab.html`, then copy it across — that
+is the only reason two near-identical files exist. The earlier version of the
+atlas, with the click-to-open Access panel and Plex Condensed headlines, is in
+the history at `c224f9e`.
+
+Source files: [`access-lab.html`](access-lab.html) &middot;
+[`usdt0-atlas.html`](usdt0-atlas.html) &middot;
 [`palette-lab.html`](palette-lab.html)
 
 ## Where things stand
