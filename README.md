@@ -44,13 +44,21 @@ accurate as written. Open items, roughly in order of urgency:
 
 **Verify with engineering** — the two technical notes in *Before you build*
 
-- **Decimals.** USDT0 is 6 decimals on Ethereum per the [USDT0 developer
-  docs](https://docs.usdt0.to/technical-documentation/developer); Stellar
-  classic assets carry 7 (a stroop is 0.0000001, per the [Stellar
-  docs](https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets)).
-  Both halves are sourced. What is *not* confirmed is what the Stellar-side
-  SAC and OFT contracts report for `decimals()` — the note is worded to avoid
-  claiming it, but an engineer should confirm the page is not misleading.
+- **Decimals — corrected after dev review, now confirmed.** Stellar USDT0
+  carries 7 decimals ([Stellar
+  docs](https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets));
+  LayerZero's OFT normalises cross-chain transfers to `sharedDecimals = 6`
+  ([OFT
+  reference](https://docs.layerzero.network/v2/concepts/technical-reference/oft-reference)).
+  The OFT converts automatically: it floors the local amount to the nearest
+  multiple and *refunds the dust to the sender before debiting*. So sending
+  1.2345678 moves 1.234567 and 0.0000008 stays put. Devs do not convert by
+  hand — they need this for amount arithmetic and display only.
+
+  Two errors were caught here. The note first said "6 decimals on Ethereum",
+  conflating USDT's token decimals with the OFT's shared-decimals parameter —
+  they happen to coincide at 6, which hid the mistake. It also said "convert
+  at the boundary", which is wrong: the OFT does it. Both fixed.
 - **Route minimums.** "Each USDT0 token may have minimum transfer amounts
   enforced at the contract level. Check `quoteOFT()` for transfer limits on
   specific routes" — USDT0 developer docs. No threshold is published, so the

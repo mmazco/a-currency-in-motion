@@ -803,7 +803,7 @@ const byTag = t => (LAYERS.find(L => L.tag === t) || {}).caveat;
 const NOTES = [
   { tag:"Trustlines", copy: byTag("Payments") },
   { tag:"Decimals",
-    copy:"<b>Precision differs by chain.</b> USDT0 carries <a href='https://docs.usdt0.to/technical-documentation/developer' target='_blank' rel='noopener noreferrer'>6 decimals</a> on Ethereum; on Stellar it is a classic asset, and every classic asset carries <a href='https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets' target='_blank' rel='noopener noreferrer'>seven</a>. Convert at the boundary rather than assuming one precision throughout." },
+    copy:"<b>The OFT reconciles a precision gap for you.</b> USDT0 on Stellar carries <a href='https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets' target='_blank' rel='noopener noreferrer'>seven decimals</a>; cross-chain transfers normalise to the OFT&rsquo;s <a href='https://docs.layerzero.network/v2/concepts/technical-reference/oft-reference' target='_blank' rel='noopener noreferrer'>six shared decimals</a>. Send 1.2345678 and 1.234567 moves; the remaining 0.0000008 is floored off as dust and refunded to you before the debit. Nothing to convert by hand &mdash; but account for it when you calculate or display an amount." },
   { tag:"Route limits",
     copy:"<b>A route can enforce a minimum.</b> Minimum transfer amounts are set per contract, so call <a href='https://docs.usdt0.to/technical-documentation/developer' target='_blank' rel='noopener noreferrer'><code>quoteOFT()</code></a> for the route you intend to use rather than assuming any amount will go through." },
   { tag:"Backing",     copy: byTag("Liquidity") },
