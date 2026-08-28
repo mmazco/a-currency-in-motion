@@ -42,6 +42,20 @@ accurate as written. Open items, roughly in order of urgency:
 - **MiCA.** USDT is not MiCA-compliant and the page names European partners.
   In or out of scope for a builder page?
 
+**Verify with engineering** — the two technical notes in *Before you build*
+
+- **Decimals.** USDT0 is 6 decimals on Ethereum per the [USDT0 developer
+  docs](https://docs.usdt0.to/technical-documentation/developer); Stellar
+  classic assets carry 7 (a stroop is 0.0000001, per the [Stellar
+  docs](https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets)).
+  Both halves are sourced. What is *not* confirmed is what the Stellar-side
+  SAC and OFT contracts report for `decimals()` — the note is worded to avoid
+  claiming it, but an engineer should confirm the page is not misleading.
+- **Route minimums.** "Each USDT0 token may have minimum transfer amounts
+  enforced at the contract level. Check `quoteOFT()` for transfer limits on
+  specific routes" — USDT0 developer docs. No threshold is published, so the
+  note tells the reader to call `quoteOFT()` rather than naming a number.
+
 **Decisions for the author**
 
 - **Spell out PSP?** "Payment service providers and fintechs building

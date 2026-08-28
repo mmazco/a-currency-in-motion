@@ -287,13 +287,15 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   font-size:13.5px; line-height:1.55; color:var(--ink-2);
 }
 .notes-sec{margin:34px 0 0;border:1px solid var(--rule);background:var(--paper-2)}
-.notes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 40px; padding:20px 20px 22px}
+.notes-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:18px}
+.notes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 40px}
 .note{display:flex; gap:12px}
 .ntag{
   flex:0 0 82px; font-family:"IBM Plex Mono",monospace; font-size:9.5px;
   letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); padding-top:3px;
 }
 .ncopy{margin:0; font-size:13px; line-height:1.55; color:var(--ink-2)}
+.ncopy b{color:var(--ink);font-weight:500}
 @media (max-width:820px){ .notes{grid-template-columns:minmax(0,1fr)} }
 
 /* ---------- day one ---------- */
@@ -616,8 +618,11 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   </section>
 
   <section class="notes-sec" id="build" aria-labelledby="bd-h">
-    <div class="dep-head"><span id="bd-h">Before you build &mdash; what to know first</span></div>
-    <div class="notes" id="notes"></div>
+    <div class="dep-head"><span id="bd-h">Before you build &mdash; requirements and limits</span></div>
+    <div class="notes-body">
+      <p class="dep-lead">What USDT0 requires of your integration, and what it will not do on its own.</p>
+      <div class="notes" id="notes"></div>
+    </div>
   </section>
 
   <dl class="spec">
@@ -792,10 +797,23 @@ document.getElementById('files').innerHTML = FILES.map(f => `
   </div>`).join('');
 
 // the caveats keep their exact review-approved wording, in their own block
-document.getElementById('notes').innerHTML = LAYERS.filter(L => L.tag !== 'Treasury').map(L => `
+// Labelled by what each note is about. The four carried over from the file
+// panels keep their reviewed wording; the first two are sourced in the README.
+const byTag = t => (LAYERS.find(L => L.tag === t) || {}).caveat;
+const NOTES = [
+  { tag:"Trustlines", copy: byTag("Payments") },
+  { tag:"Decimals",
+    copy:"<b>Precision differs by chain.</b> USDT0 carries <a href='https://docs.usdt0.to/technical-documentation/developer' target='_blank' rel='noopener noreferrer'>6 decimals</a> on Ethereum; on Stellar it is a classic asset, and every classic asset carries <a href='https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets' target='_blank' rel='noopener noreferrer'>seven</a>. Convert at the boundary rather than assuming one precision throughout." },
+  { tag:"Route limits",
+    copy:"<b>A route can enforce a minimum.</b> Minimum transfer amounts are set per contract, so call <a href='https://docs.usdt0.to/technical-documentation/developer' target='_blank' rel='noopener noreferrer'><code>quoteOFT()</code></a> for the route you intend to use rather than assuming any amount will go through." },
+  { tag:"Backing",     copy: byTag("Liquidity") },
+  { tag:"Yield",       copy: byTag("Collateral") },
+  { tag:"Listings",    copy: byTag("Distribution") }
+];
+document.getElementById('notes').innerHTML = NOTES.map(n => `
   <div class="note">
-    <div class="ntag">${L.tag}</div>
-    <p class="ncopy">${L.caveat}</p>
+    <div class="ntag">${n.tag}</div>
+    <p class="ncopy">${n.copy}</p>
   </div>`).join('');
 
 
