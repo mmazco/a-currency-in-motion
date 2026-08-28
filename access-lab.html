@@ -104,7 +104,7 @@ svg{display:block;max-width:100%;height:auto}
    down-left so every name stays readable. Clicking a name swaps the title and
    description on the left. Percentage geometry, so the stack scales instead of
    scrolling. */
-.fig-files{padding:0 40px 34px}
+.fig-files{padding:0 40px 30px}
 .folder-fig{display:flex;gap:34px;align-items:flex-start;justify-content:center;padding:26px 40px 30px}
 
 .desc{flex:1 1 0;min-width:0;max-width:620px;display:flex;flex-direction:column;gap:12px}
@@ -171,7 +171,10 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 /* ---- the stack: folders in a folder ---- */
 /* six slots, back to front. Each folder's tab sits on the left of its top edge,
    and the down-left offset keeps every tab uncovered. */
-.stackwrap{flex:0 0 clamp(250px,40%,460px);min-width:0}
+.stackwrap{flex:0 0 clamp(250px,42%,520px);min-width:0;
+  /* the stack is shorter than the description beside it, so centre it
+     rather than let the leftover height pool at the bottom of the panel */
+  align-self:center}
 .stack{position:relative;width:100%;aspect-ratio:1.316;container-type:inline-size}
 .file{
   position:absolute;width:70.59%;height:61.29%;
@@ -243,7 +246,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 
 /* ---- access lab: five files shown at once, as benefits under the feature ---- */
 .files{
-  border-top:1px solid var(--rule); margin-top:34px;
+  border-top:1px solid var(--rule);
   display:grid; grid-template-columns:repeat(5,minmax(0,1fr));
 }
 .fcol{padding:18px 20px 4px; border-right:1px solid var(--rule);
@@ -289,7 +292,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 .notes-head{
   font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.14em;
   text-transform:uppercase; color:var(--ink-3);
-  border-top:1px solid var(--rule); padding-top:14px; margin-top:30px;
+  border-top:1px solid var(--rule); padding-top:14px; margin-top:26px;
 }
 .notes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 40px; margin-top:14px}
 .note{display:flex; gap:12px}
