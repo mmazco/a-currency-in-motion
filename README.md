@@ -22,6 +22,45 @@ inline comments — use those if you want feedback threaded against the copy.
 Source files: [`usdt0-atlas.html`](usdt0-atlas.html) &middot;
 [`palette-lab.html`](palette-lab.html)
 
+## Where things stand
+
+Live and reviewed. Copy has been through internal review twice; the page is
+accurate as written. Open items, roughly in order of urgency:
+
+**Waiting on the team**
+
+- **Cumulative volume.** The spec strip shows USDT in circulation ($183B,
+  CoinMarketCap). USDT0's own unified supply is $3.4B (analytics.usdt0.to).
+  A cumulative-volume figure *with a definition attached* would be better than
+  either — ask Everdawn. Do not label circulation as unified supply; the
+  dashboard contradicts it in one click.
+- **"USDT is the stablecoin most of the world's crypto users already hold"**
+  (Payments layer) — broadly true, unsourced superlative. Is there an approved
+  formulation?
+- **Day one partners.** Kraken is the only exchange listed. Confirm before
+  launch, and decide on Bitso, Crypto.com, BiLira.
+- **MiCA.** USDT is not MiCA-compliant and the page names European partners.
+  In or out of scope for a builder page?
+
+**Decisions for the author**
+
+- **Spell out PSP?** "Payment service providers and fintechs building
+  cross-border payments, payouts, and remittance solutions."
+- **Sharpen the Treasury caveat?** The issuer account is locked — sole signer
+  at weight 0, verified on Horizon — so there is no single key at all. The
+  caveat currently says "behind a multisig rather than a single key", which is
+  true but softer than the facts allow.
+
+**Follow-on work**
+
+- **Blog: the control structure.** SAC `CBSJ…26YF` → admin contract
+  `CA3G…YWGJ` → owner `CBCZ…QKR6`, which holds 5 signers; engineering reports
+  a 3-of-5 OneSig multisig. The threshold is deliberately not on the landing
+  page — it is a parameter that can change.
+- **The stellar-docs PR** — see Hosting below.
+- **Figma frames** on the *Web Pages* board are all behind this copy.
+- **Never verified at 375px.** Measured, not seen.
+
 ## Palette
 
 The page ships in the **Stellar palette**, light and dark, with a toggle in
