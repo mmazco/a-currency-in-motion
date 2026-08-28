@@ -144,17 +144,18 @@ dd code{
 .caveat b{color:var(--ink);font-weight:500}
 
 /* source links: quiet by default, accent on hover — a claim you can check */
-dd a,.id-note a,.only p a,.spec dd a{
+dd a,.id-note a,.only p a,.spec dd a,.dep-note a,.ncopy a{
   color:inherit;text-decoration:none;
   border-bottom:1px solid var(--rule);
 }
-dd a:hover,.id-note a:hover,.only p a:hover,.spec dd a:hover{
+dd a:hover,.id-note a:hover,.only p a:hover,.spec dd a:hover,.dep-note a:hover,.ncopy a:hover{
   color:var(--accent-ink);border-bottom-color:var(--accent-ink);
 }
-dd a:focus-visible,.id-note a:focus-visible,.only p a:focus-visible,.spec dd a:focus-visible{
+dd a:focus-visible,.id-note a:focus-visible,.only p a:focus-visible,.spec dd a:focus-visible,
+.dep-note a:focus-visible,.ncopy a:focus-visible{
   outline:2px solid var(--accent-ink);outline-offset:2px;border-bottom-color:transparent;
 }
-dd a code{border-bottom:0}
+dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 .sources{
   margin-top:26px;border-top:1px solid var(--rule);padding-top:10px;
   display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;
@@ -280,6 +281,7 @@ dd a code{border-bottom:0}
   .fcol:last-child{border-bottom:0}
 }
 
+.dep-note b{color:var(--ink);font-weight:500}
 .dep-note{
   border-top:1px solid var(--rule); padding:12px 20px;
   font-size:13.5px; line-height:1.55; color:var(--ink-2);
