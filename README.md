@@ -1,8 +1,9 @@
 # a currency in motion
 
-> **Draft, for review.** Three figures are still unconfirmed with the team —
-> the network count, total moved via USDT0, and how widely USDT is held.
-> Treat the copy as provisional. Final version ships as a PR to
+> **Draft, for review.** The Access section was rebuilt on 28 Aug and its copy
+> has not been through internal review in this form. Two technical notes need
+> an engineer's sign-off, and the network count is sourced but unconfirmed —
+> see *Where things stand*. Final version ships as a PR to
 > [stellar-docs](https://github.com/stellar/stellar-docs).
 
 Single self-contained pages, no build step — open either HTML file directly,
@@ -31,8 +32,11 @@ Source files: [`access-lab.html`](access-lab.html) &middot;
 
 ## Where things stand
 
-Live and reviewed. Copy has been through internal review twice; the page is
-accurate as written. Open items, roughly in order of urgency:
+Live. The copy up to 28 Aug went through internal review twice. The Access
+section was then rebuilt — all five files shown at once instead of one at a
+time — and most of its copy was rewritten after that review, so it is accurate
+as far as it has been checked but has not been re-reviewed in this form.
+Open items, roughly in order of urgency:
 
 **Waiting on the team**
 
@@ -47,9 +51,10 @@ accurate as written. Open items, roughly in order of urgency:
   "$100B+ moved" line cut from an earlier draft. It still arrives without a
   definition or a date range, so it needs one before use — but it is a
   concrete thing to ask them about rather than an open question.
-- **"USDT is the stablecoin most of the world's crypto users already hold"**
-  (Payments layer) — broadly true, unsourced superlative. Is there an approved
-  formulation?
+- ~~**"USDT is the stablecoin most of the world's crypto users already hold"**~~
+  — no longer rendered. It lived in the click-to-open panel copy, which the
+  rebuilt Access section does not display. The string is still in `LAYERS` as
+  reference data; delete it or get a formulation approved before reusing it.
 - **Day one partners.** Kraken is the only exchange listed. Confirm before
   launch, and decide on Bitso, Crypto.com, BiLira.
 - **MiCA.** USDT is not MiCA-compliant and the page names European partners.
@@ -79,12 +84,26 @@ accurate as written. Open items, roughly in order of urgency:
 
 **Decisions for the author**
 
-- **Spell out PSP?** "Payment service providers and fintechs building
-  cross-border payments, payouts, and remittance solutions."
+- ~~**Spell out PSP?**~~ — moot for now; the line lived in the click-to-open
+  panel and is not rendered. Same caveat as above if the copy comes back.
 - **Sharpen the Treasury caveat?** The issuer account is locked — sole signer
   at weight 0, verified on Horizon — so there is no single key at all. The
   caveat currently says "behind a multisig rather than a single key", which is
   true but softer than the facts allow.
+
+**Changed on 28 Aug, after the last review**
+
+- **Access rebuilt** — all five files shown at once as columns beneath the
+  folder stack, instead of one at a time on click. Ordered by priority:
+  payments, treasury, collateral, distribution, liquidity, set in one `ORDER`
+  constant the stack and columns both read.
+- **New section, *Before you build*** — six requirement and limitation notes,
+  sitting after Deploy with its own marker in the nav.
+- **Headlines to Inter**, Plex Condensed dropped. See *Type*.
+- **A bug worth knowing about.** An orphaned line survived the Access rebuild
+  and threw at load, which silently killed the theme toggle — the last block in
+  the script. `node --check` passed it, because it was valid syntax and a
+  runtime error. Fixed. The lesson: check the console, not just the parser.
 
 **Follow-on work**
 
@@ -94,7 +113,9 @@ accurate as written. Open items, roughly in order of urgency:
   page — it is a parameter that can change.
 - **The stellar-docs PR** — see Hosting below.
 - **Figma frames** on the *Web Pages* board are all behind this copy.
-- **Never verified at 375px.** Measured, not seen.
+- **Never *seen* at 375px.** Measured only. The headline was swept from 320px
+  to 1300px and holds a three-line shape from 375px up; the columns and notes
+  were measured at 980px and 760px. Nobody has looked at it on a phone.
 
 ## Palette
 
@@ -124,20 +145,28 @@ anything thin or textual uses the ochre. On black the same yellow reaches
 13.9:1 and can do both, which is why dark mode looks bolder.
 
 `palette-lab.html` keeps all five explored directions — Drafting, Stellar,
-Studio, and dark variants of the first two — and is not the page.
+Studio, and dark variants of the first two — and is not the page. It has not
+been updated since the colour decision: it still shows the pre-28-Aug layout
+and copy under its switcher. Use it to compare colour, not content.
 
 ## Type
 
 | | |
 |---|---|
+| **Inter** 600 | The h1, folder and file headlines, cover name, diagram labels |
 | **Inter** 400/500 | All body copy |
-| **IBM Plex Sans Condensed** 600 | Headlines, layer headings, venue names |
-| **IBM Plex Mono** 400/500 | Labels, identifiers, spec strip, sources, diagram |
+| **IBM Plex Mono** 400/500 | Labels, identifiers, spec strip, sources, folder tabs |
 
-Inter matches stellar.org's primary face. Mono carries most of the page's
-chrome, which is what makes it read as a technical document rather than a
-marketing page. All three are open source (Inter under the SIL OFL), so
-nothing blocks shipping them.
+Two families. IBM Plex Sans Condensed carried the headlines until 28 Aug and
+has been removed entirely — Inter now does both display and body. That cost
+some width: the h1 breaks over three lines where the condensed face took two,
+and it needed its own display tuning (tighter tracking at -.03em, a little
+more leading for Inter's taller x-height).
+
+Inter matches stellar.org's primary face. Mono carries the page's chrome,
+which is what makes it read as a technical document rather than a marketing
+page. Both are open source (Inter under the SIL OFL), so nothing blocks
+shipping them.
 
 Note the fonts load from `fonts.googleapis.com` — the only thing in these
 files that reaches outside. If the docs site self-hosts or forbids
