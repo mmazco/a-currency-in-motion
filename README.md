@@ -34,6 +34,12 @@ accurate as written. Open items, roughly in order of urgency:
   A cumulative-volume figure *with a definition attached* would be better than
   either — ask Everdawn. Do not label circulation as unified supply; the
   dashboard contradicts it in one click.
+
+  Lead: [everdawn.to](https://everdawn.to/) carries a "$100 billion
+  transaction volume" milestone headline. That is plausibly the origin of the
+  "$100B+ moved" line cut from an earlier draft. It still arrives without a
+  definition or a date range, so it needs one before use — but it is a
+  concrete thing to ask them about rather than an open question.
 - **"USDT is the stablecoin most of the world's crypto users already hold"**
   (Payments layer) — broadly true, unsourced superlative. Is there an approved
   formulation?
