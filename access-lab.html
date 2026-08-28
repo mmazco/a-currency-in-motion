@@ -284,12 +284,8 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   border-top:1px solid var(--rule); padding:12px 20px;
   font-size:13.5px; line-height:1.55; color:var(--ink-2);
 }
-.notes-head{
-  font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--ink-3);
-  border-top:1px solid var(--rule); padding-top:14px; margin-top:26px;
-}
-.notes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 40px; margin-top:14px}
+.notes-sec{margin:34px 0 0;border:1px solid var(--rule);background:var(--paper-2)}
+.notes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 40px; padding:20px 20px 22px}
 .note{display:flex; gap:12px}
 .ntag{
   flex:0 0 82px; font-family:"IBM Plex Mono",monospace; font-size:9.5px;
@@ -447,6 +443,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
       <a class="tick" href="#access" aria-label="Access" title="Access"></a>
       <a class="tick" href="#dayone" aria-label="Day one" title="Day one"></a>
       <a class="tick" href="#deploy" aria-label="Deploy" title="Deploy"></a>
+      <a class="tick" href="#build" aria-label="Before you build" title="Before you build"></a>
     </nav>
   </div>
 
@@ -537,8 +534,6 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
     </div>
     <div class="fig-files">
       <div class="files" id="files"></div>
-      <div class="notes-head">Before you build</div>
-      <div class="notes" id="notes"></div>
     </div>
   </figure>
 
@@ -616,6 +611,11 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 
     </div>
     <div class="dep-note"><b><a href='https://stellar.expert/explorer/public/asset/USDT0-GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q' target='_blank' rel='noopener noreferrer'>This asset</a> sets <code>revocable</code> and <code>clawback_enabled</code></b>, behind a multisig rather than a single key. A trustline can be revoked or a <a href='https://developers.stellar.org/docs/build/guides/transactions/clawbacks' target='_blank' rel='noopener noreferrer'>balance clawed back</a>, which limits what a treasury contract can promise. <code>auth_required</code> is not set, so anyone can hold it.</div>
+  </section>
+
+  <section class="notes-sec" id="build" aria-labelledby="bd-h">
+    <div class="dep-head"><span id="bd-h">Before you build &mdash; what to know first</span></div>
+    <div class="notes" id="notes"></div>
   </section>
 
   <dl class="spec">
@@ -799,7 +799,7 @@ document.getElementById('notes').innerHTML = LAYERS.filter(L => L.tag !== 'Treas
 
 // ---------- section markers ----------
 const SECTIONS = [
-  ["arrival","Arrival"], ["access","Access"], ["dayone","Day one"], ["deploy","Deploy"]
+  ["arrival","Arrival"], ["access","Access"], ["dayone","Day one"], ["deploy","Deploy"], ["build","Before you build"]
 ];
 const secTicks = [...document.querySelectorAll('.tick')];
 
