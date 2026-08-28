@@ -266,15 +266,6 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   font-size:19px; line-height:1.12; letter-spacing:-.01em; color:var(--ink); margin:0 0 9px;
 }
 .fcopy{margin:0 0 14px; font-size:13.5px; line-height:1.5; color:var(--ink-2)}
-.fbuild{
-  margin-top:auto;
-  border-top:1px solid var(--rule-2); padding-top:9px;
-  font-family:"IBM Plex Mono",monospace; font-size:10.5px; line-height:1.6; color:var(--ink-3);
-}
-.fbuild b{
-  display:block; font-weight:400; letter-spacing:.14em; text-transform:uppercase;
-  font-size:9px; margin-bottom:4px;
-}
 @media (max-width:1000px){
   .files{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fcol{border-bottom:1px solid var(--rule); padding-left:20px}
@@ -748,20 +739,15 @@ const desc  = document.getElementById('desc');
 // live page; this view trades depth for seeing all five at once.
 const FILES = [
   { tag:"Liquidity",    head:"Stellar joins the USDT market",
-    copy:"A route into the USDT supply that already exists on 28 networks — not a separate pool that has to be built here.",
-    build:"usdt0.to &middot; trustline" },
+    copy:"A route into the USDT supply that already exists on 28 networks — not a separate pool that has to be built here." },
   { tag:"Payments",     head:"A dollar people already hold",
-    copy:"Cross-border settlement, payouts and remittances in the dollar the recipient already keeps.",
-    build:"path payments &middot; SEP-6/24/31" },
+    copy:"Cross-border settlement, payouts and remittances in the dollar the recipient already keeps." },
   { tag:"Treasury",     head:"Treasury and fund management workflows",
-    copy:"Products that hold working balances, or keep dollars where the local currency isn&rsquo;t a store of value.",
-    build:"multisig &middot; sponsored reserves" },
+    copy:"Products that hold working balances, or keep dollars where the local currency isn&rsquo;t a store of value." },
   { tag:"Collateral",   head:"Doing a second job",
-    copy:"Listed as a borrowable asset, so tokenized real-world collateral has a familiar dollar to borrow against.",
-    build:"Soroban vaults &middot; oracles" },
+    copy:"Listed as a borrowable asset, so tokenized real-world collateral has a familiar dollar to borrow against." },
   { tag:"Distribution", head:"One dollar, many doors",
-    copy:"Every exchange, wallet and fintech that lists it becomes an entrance to Stellar&rsquo;s rails.",
-    build:"SEP-1 &middot; existing SDKs" }
+    copy:"Every exchange, wallet and fintech that lists it becomes an entrance to Stellar&rsquo;s rails." }
 ];
 
 const shape = extra => `
@@ -801,7 +787,6 @@ document.getElementById('files').innerHTML = FILES.map(f => `
     <div class="ftag">${f.tag}</div>
     <h4 class="fhead">${f.head}</h4>
     <p class="fcopy">${f.copy}</p>
-    <div class="fbuild"><b>Build with</b>${f.build}</div>
   </div>`).join('');
 
 // the caveats keep their exact review-approved wording, in their own block
