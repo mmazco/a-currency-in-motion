@@ -776,8 +776,13 @@ stack.setAttribute('aria-label',
   `A ${FOLDER.name} folder, its cover in front, holding five files: ` +
   ORDER.map(t => t.toLowerCase()).join(', ') + '.');
 
+// Reversed for the stack only: the cover is front-most at the bottom, so
+// laying the files out back-to-front puts Payments directly behind it and
+// Liquidity furthest back. Read outward from the cover, the sequence is
+// USDT0, payments, treasury, collateral, distribution, liquidity — the same
+// priority the columns below use.
 stack.innerHTML =
-  inOrder(LAYERS).map((L,i) =>
+  inOrder(LAYERS).reverse().map((L,i) =>
     `<div class="file" style="left:${(5-i)*STEP_X}%;top:${i*STEP_Y}%;z-index:${i+1}">
        ${shape('')}<span class="fname">${L.tag.toUpperCase()}</span>
      </div>`).join('') +
