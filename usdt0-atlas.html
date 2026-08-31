@@ -280,10 +280,6 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 }
 
 .dep-note b{color:var(--ink);font-weight:500}
-/* no rule above the tip: it reads as a continuation of the note before it,
-   not a third band. The preceding note's bottom padding is the only gap. */
-.dep-note.tip{display:flex;gap:9px;align-items:flex-start;border-top:0;padding-top:0}
-.tip-mark{flex:0 0 auto;font-size:13px;line-height:1.55}
 .dep-note{
   border-top:1px solid var(--rule); padding:12px 20px;
   font-size:13.5px; line-height:1.55; color:var(--ink-2);
@@ -591,8 +587,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
          href="https://docs.usdt0.to/technical-documentation/deployments?q=stellar">Contract deployments on docs.usdt0.to &rarr;</a>
 
     </div>
-    <div class="dep-note"><b><a href='https://stellar.expert/explorer/public/asset/USDT0-GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q' target='_blank' rel='noopener noreferrer'>This asset</a> sets <code>revocable</code> and <code>clawback_enabled</code></b>, behind a multisig rather than a single key. A trustline can be revoked or a <a href='https://developers.stellar.org/docs/build/guides/transactions/clawbacks' target='_blank' rel='noopener noreferrer'>balance clawed back</a>. <code>auth_required</code> is not set, so anyone can hold it.</div>
-    <div class="dep-note tip"><span class="tip-mark" aria-hidden="true">&#128161;</span><span>Soroswap maintains an <a href='https://github.com/soroswap/token-list/tree/main/assets' target='_blank' rel='noopener noreferrer'>ecosystem token list</a> covering both classic assets and contract tokens. Community-maintained rather than an official registry, and widely used.</span></div>
+    <div class="dep-note"><b><a href='https://stellar.expert/explorer/public/asset/USDT0-GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q' target='_blank' rel='noopener noreferrer'>This asset</a> sets <code>revocable</code> and <code>clawback_enabled</code></b>, behind a multisig rather than a single key. A trustline can be revoked or a <a href='https://developers.stellar.org/docs/build/guides/transactions/clawbacks' target='_blank' rel='noopener noreferrer'>balance clawed back</a>. <code>auth_required</code> is not set, so anyone can hold it. &#128161; Soroswap maintains an <a href='https://github.com/soroswap/token-list/tree/main/assets' target='_blank' rel='noopener noreferrer'>ecosystem token list</a> covering both classic assets and contract tokens. Community-maintained rather than an official registry, and widely used.</div>
   </section>
 
   <section class="notes-sec" id="build" aria-labelledby="bd-h">
