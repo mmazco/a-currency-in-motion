@@ -2,8 +2,7 @@
 
 > **Draft, for review.** The Access section was rebuilt on 28 Aug and its copy
 > has not been through internal review in this form. Two technical notes need
-> an engineer's sign-off, and the network count is sourced but unconfirmed —
-> see *Where things stand*. Final version ships as a PR to
+> an engineer's sign-off. See *Where things stand*. Final version ships as a PR to
 > [stellar-docs](https://github.com/stellar/stellar-docs).
 
 Single self-contained pages, no build step — open either HTML file directly,
@@ -39,6 +38,13 @@ as far as it has been checked but has not been re-reviewed in this form.
 Open items, roughly in order of urgency:
 
 **Waiting on the team**
+
+- **Network count is stated as 26+, deliberately.** analytics.usdt0.to showed 28
+  directly connected chains when checked, and the spec strip still links there.
+  26+ is the author's call — conservative, and it does not go stale the next
+  time a chain is added. Not an error; do not "correct" it back to 28 without
+  asking. It appears in two rendered places, the spec strip and the Access
+  panel, and both were changed together.
 
 - **Cumulative volume.** The spec strip shows USDT in circulation ($183B,
   CoinMarketCap). USDT0's own unified supply is $3.4B (analytics.usdt0.to).
