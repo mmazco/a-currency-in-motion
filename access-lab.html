@@ -181,9 +181,9 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   /* the stack is shorter than the description beside it, so centre it
      rather than let the leftover height pool at the bottom of the panel */
   align-self:center}
-.stack{position:relative;width:100%;aspect-ratio:1.316;container-type:inline-size}
+.stack{position:relative;width:100%;aspect-ratio:var(--ar,1.316);container-type:inline-size}
 .file{
-  position:absolute;width:70.59%;height:61.29%;
+  position:absolute;width:var(--fw,70.59%);height:var(--fh,61.29%);
   appearance:none;background:none;border:0;padding:0;margin:0;
   text-align:left;cursor:pointer;
   transition:transform .16s ease;
@@ -248,7 +248,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 /* ---- access lab: five files shown at once, as benefits under the feature ---- */
 .files{
   border-top:1px solid var(--rule);
-  display:grid; grid-template-columns:repeat(5,minmax(0,1fr));
+  display:grid; grid-template-columns:repeat(var(--cols,5),minmax(0,1fr));
 }
 .fcol{padding:18px 20px 4px; border-right:1px solid var(--rule);
   display:flex; flex-direction:column}
@@ -268,7 +268,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   .fcol{border-bottom:1px solid var(--rule); padding-left:20px}
   .fcol:first-child{padding-left:20px}
   .fcol:nth-child(2n){border-right:0}
-  .fcol:nth-last-child(-n+1){border-bottom:0}
+  .fcol:nth-last-child(-n+2){border-bottom:0}
 }
 @media (max-width:620px){
   .files{grid-template-columns:minmax(0,1fr)}
@@ -657,7 +657,7 @@ const FOLDER = {
 
 // Reading order across the section: the stack, the columns and the notes all
 // follow this, so priority is changed in one place.
-const ORDER = ["Payments","Treasury","Collateral","Distribution","Liquidity"];
+const ORDER = ["Payments","Treasury","Collateral","Distribution"];
 const inOrder = arr => ORDER.map(t => arr.find(x => x.tag === t)).filter(Boolean);
 
 const LAYERS = [
@@ -710,7 +710,13 @@ const LAYERS = [
 
 // six slots, back to front: the five layers, then the USDT0 folder cover.
 // offsets step down-left so every tab stays uncovered.
-const STEP_X = 5.882, STEP_Y = 7.742;
+// The stack was drawn for five files plus a cover, filling its box exactly.
+// With a different count the folders are rescaled so they still fill it, and the
+// box's aspect ratio moves with them so the folder shape itself never distorts.
+const STEP_X0 = 5.882, STEP_Y0 = 7.742, FW0 = 70.59, FH0 = 61.29, AR0 = 1.316;
+const N = ORDER.length;
+const KX = 100 / (N * STEP_X0 + FW0), KY = 100 / (N * STEP_Y0 + FH0);
+const STEP_X = STEP_X0 * KX, STEP_Y = STEP_Y0 * KY;
 
 // folder silhouette — tab cut into the left of the top edge
 const FO_BODY = "M 8 0 H 110 A 8 8 0 0 1 118 8 V 24 H 280 A 8 8 0 0 1 288 32 " +
@@ -745,8 +751,13 @@ const shape = extra => `
 // the stack is now a picture, not a control — every file is written out below it
 // generated, so it cannot drift out of step with ORDER the way a hand-written
 // label did
+stack.style.setProperty('--ar', String(AR0 * KY / KX));
+stack.style.setProperty('--fw', (FW0 * KX) + '%');
+stack.style.setProperty('--fh', (FH0 * KY) + '%');
+document.getElementById('files').style.setProperty('--cols', String(N));
+
 stack.setAttribute('aria-label',
-  `A ${FOLDER.name} folder, its cover in front, holding five files: ` +
+  `A ${FOLDER.name} folder, its cover in front, holding ${N} files: ` +
   ORDER.map(t => t.toLowerCase()).join(', ') + '.');
 
 // Reversed for the stack only: the cover is front-most at the bottom, so
@@ -756,10 +767,10 @@ stack.setAttribute('aria-label',
 // priority the columns below use.
 stack.innerHTML =
   inOrder(LAYERS).reverse().map((L,i) =>
-    `<div class="file" style="left:${(5-i)*STEP_X}%;top:${i*STEP_Y}%;z-index:${i+1}">
+    `<div class="file" style="left:${(N-i)*STEP_X}%;top:${i*STEP_Y}%;z-index:${i+1}">
        ${shape('')}<span class="fname">${L.tag.toUpperCase()}</span>
      </div>`).join('') +
-  `<div class="file cover" style="left:0;top:${5*STEP_Y}%;z-index:6">
+  `<div class="file cover" style="left:0;top:${N*STEP_Y}%;z-index:${N+1}">
      ${shape(`<path class="fo-tint" d="${FO_BODY}"/>`)}
      <span class="fname">${FOLDER.name}</span>
      <span class="cover-body">
