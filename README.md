@@ -46,8 +46,9 @@ Open items, roughly in order of urgency:
   asking. It appears in two rendered places, the spec strip and the Access
   panel, and both were changed together.
 
-- **Cumulative volume.** The spec strip shows USDT in circulation ($183B,
-  CoinMarketCap). USDT0's own unified supply is $3.4B (analytics.usdt0.to).
+- **Cumulative volume.** The spec strip shows USDT in circulation, stated as
+  $180B+ (CoinMarketCap read $183B when checked — rounded down for the same
+  reason as the network count). USDT0's own unified supply is $3.4B (analytics.usdt0.to).
   A cumulative-volume figure *with a definition attached* would be better than
   either — ask Everdawn. Do not label circulation as unified supply; the
   dashboard contradicts it in one click.
