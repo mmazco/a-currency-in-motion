@@ -236,11 +236,6 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   font-size:clamp(7px,2.46cqw,12px);line-height:1.7;color:var(--ink-2);
 }
 
-/* one height for every panel — the figure must not resize when copy is lighter */
-@media (min-width:821px){
-  .desc{min-height:520px}
-}
-
 /* ---- narrow: stack above, description below ---- */
 @media (max-width:820px){
   .folder-fig{flex-direction:column;gap:22px;padding:20px 14px 24px}
@@ -657,9 +652,12 @@ const FOLDER = {
   name:"USDT0",
   head:"Access to a new economy",
   claim:"The asset that brings access to new corridors, counterparties, and financial use cases on Stellar.",
-  unlocks:"Access to the same circulation supply as other networks it connects with.",
-  how:"USDT0 is what makes USDT interoperable across networks, operated by <a href='https://everdawn.to/' target='_blank' rel='noopener noreferrer'>Everdawn Labs</a> on LayerZero\u2019s OFT standard. Issued natively on each network against one unified supply on Ethereum.",
-  start:"An asset with utility for cross-border payments, payouts, remittance solutions and more."
+  rows:[
+    { label:"One asset, unified liquidity",
+      copy:"USDT0 maintains a unified supply anchored to USDT on Ethereum, so liquidity isn&rsquo;t fragmented across separate wrapped versions of the asset." },
+    { label:"Built to move across networks",
+      copy:"Operated by <a href='https://everdawn.to/' target='_blank' rel='noopener noreferrer'>Everdawn Labs</a>, USDT0 connects Stellar to <a href='https://analytics.usdt0.to/' target='_blank' rel='noopener noreferrer'>28 networks</a> through LayerZero&rsquo;s OFT standard." }
+  ]
 };
 
 // Reading order across the section: the stack, the columns and the notes all
@@ -779,11 +777,8 @@ desc.innerHTML =
   '<span class="d-eyebrow">'+FOLDER.name+'</span>'+
   '<h3 class="d-head">'+FOLDER.head+'</h3>'+
   '<p class="d-claim">'+FOLDER.claim+'</p>'+
-  '<dl>'+
-    '<div><dt>What it means</dt><dd>'+FOLDER.unlocks+'</dd></div>'+
-    '<div><dt>How it works</dt><dd>'+FOLDER.how+'</dd></div>'+
-    '<div><dt>Where to start</dt><dd>'+FOLDER.start+'</dd></div>'+
-  '</dl>';
+  '<dl>'+ FOLDER.rows.map(r =>
+    '<div><dt>'+r.label+'</dt><dd>'+r.copy+'</dd></div>').join('') +'</dl>';
 
 document.getElementById('files').innerHTML = inOrder(FILES).map(f => `
   <div class="fcol">
