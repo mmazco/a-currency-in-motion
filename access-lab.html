@@ -62,7 +62,7 @@ html{scroll-behavior:smooth}
 
 /* Inter needs display tuning the condensed face did not: more negative
    tracking, and a little more leading for its taller x-height and longer
-   descenders. The accent is a block so the colour change lands on the line
+   descenders. The accent is a block so the color change lands on the line
    break instead of stranding a word at the end of line one. */
 h1{
   font-family:"Inter","Helvetica Neue",Arial,sans-serif;
@@ -205,7 +205,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 /* six slots, back to front. Each folder's tab sits on the left of its top edge,
    and the down-left offset keeps every tab uncovered. */
 .stackwrap{flex:0 0 clamp(250px,42%,520px);min-width:0;
-  /* the stack is shorter than the description beside it, so centre it
+  /* the stack is shorter than the description beside it, so center it
      rather than let the leftover height pool at the bottom of the panel */
   align-self:center}
 .stack{position:relative;width:100%;aspect-ratio:var(--ar,1.316);container-type:inline-size}
@@ -463,15 +463,15 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   </div>
 
   <h1>The asset with a unified supply <em>arrives on Stellar</em></h1>
-  <p class="deck">USDT0 is now live on Stellar, bringing the world&rsquo;s most widely used stablecoin
-  natively to the network. It connects to <strong>a unified USDT supply</strong>, allowing liquidity to
-  move across networks without fragmentation. And it works with your existing Stellar stack.</p>
+  <p class="deck">USDT0 is now live on Stellar, bringing access to the world&rsquo;s most widely
+  used stablecoin. It connects to <strong>a unified USDT supply</strong>, allowing liquidity to move
+  across networks without fragmentation. And it works with your existing Stellar stack.</p>
 
   <!-- ============ FIGURE 1 ============ -->
   <figure id="arrival">
     <div class="fig-head"><span>Arrival &mdash; how USDT0 gets to Stellar</span></div>
     <div class="fig-body">
-  <svg viewBox="0 0 990 420" role="img" aria-label="The USDT0 supply chain. USDT on Ethereum is locked and unlocked with the USDT0 adapter. From there one flow forks: Ethereum mints USDT0 directly on Stellar through Stellar's own OFT contract, and Ethereum also mints USDT0 on every other USDT0 chain, with an OFT on each USDT0-compatible network. Any of those chains can burn its USDT0 so Stellar's OFT mints instead, which never touches Ethereum. Either way the Stellar OFT is the single entry point, and what it mints is USDT0 on Stellar, a native Stellar asset compatible with existing toolkits, which feeds payment rails, treasury balances and lending markets. A dashed line shows the routes run the other way.">
+  <svg viewBox="0 0 990 420" role="img" aria-label="The USDT0 supply chain. USDT on Ethereum is locked and unlocked with the USDT0 adapter. From there one flow forks: Ethereum mints USDT0 directly on Stellar through Stellar's own OFT contract, and Ethereum also mints USDT0 on every other USDT0 chain, with an OFT on each USDT0-compatible network. Any of those chains can burn its USDT0 so Stellar's OFT mints instead, which never touches Ethereum. Either way the Stellar OFT is the single entry point, and what it mints is USDT0 on Stellar, a native Stellar asset compatible with existing toolkits, which feeds payment rails, treasury balances, and lending markets. A dashed line shows the routes run the other way.">
         <defs>
           <marker id="c-ar" viewBox="0 0 10 10" refX="9.4" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
@@ -767,7 +767,7 @@ const FILES = [
   { tag:"Collateral",   head:"Put USDT0 to work",
     copy:"Give lending markets a familiar dollar-denominated asset to use as collateral or borrow against." },
   { tag:"Distribution", head:"One asset, many doors",
-    copy:"Every exchange, wallet and fintech that lists it becomes an entrance to Stellar&rsquo;s rails." }
+    copy:"Every exchange, wallet, and fintech that lists it becomes an entrance to Stellar&rsquo;s rails." }
 ];
 
 const shape = extra => `
@@ -823,13 +823,13 @@ document.getElementById('files').innerHTML = inOrder(FILES).map(f => `
   </div>`).join('');
 
 // the caveats keep their exact review-approved wording, in their own block
-// Labelled by what each note is about. The four carried over from the file
+// Labeled by what each note is about. The four carried over from the file
 // panels keep their reviewed wording; the first two are sourced in the README.
 const byTag = t => (LAYERS.find(L => L.tag === t) || {}).caveat;
 const NOTES = [
   { tag:"Trustlines", copy: byTag("Payments") },
   { tag:"Decimals",
-    copy:"<b>The OFT reconciles a precision gap for you.</b> USDT0 on Stellar carries <a href='https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets' target='_blank' rel='noopener noreferrer'>seven decimals</a>; cross-chain transfers normalise to the OFT&rsquo;s <a href='https://docs.layerzero.network/v2/concepts/technical-reference/oft-reference' target='_blank' rel='noopener noreferrer'>six shared decimals</a>. Send 1.2345678 and 1.234567 moves; the remaining 0.0000008 is floored off as dust and refunded to you before the debit. Nothing to convert by hand &mdash; but account for it when you calculate or display an amount." },
+    copy:"<b>The OFT reconciles a precision gap for you.</b> USDT0 on Stellar carries <a href='https://developers.stellar.org/docs/learn/fundamentals/stellar-data-structures/assets' target='_blank' rel='noopener noreferrer'>seven decimals</a>; cross-chain transfers normalize to the OFT&rsquo;s <a href='https://docs.layerzero.network/v2/concepts/technical-reference/oft-reference' target='_blank' rel='noopener noreferrer'>six shared decimals</a>. Send 1.2345678 and 1.234567 moves; the remaining 0.0000008 is floored off as dust and refunded to you before the debit. Nothing to convert by hand &mdash; but account for it when you calculate or display an amount." },
   { tag:"Route limits",
     copy:"<b>A route can enforce a minimum.</b> Minimum transfer amounts are set per contract, so call <a href='https://docs.usdt0.to/technical-documentation/developer' target='_blank' rel='noopener noreferrer'><code>quoteOFT()</code></a> for the route you intend to use rather than assuming any amount will go through." },
   { tag:"Backing",     copy: byTag("Liquidity") },
@@ -880,7 +880,7 @@ spy();
 // ---------- deploy identifiers ----------
 const IDS = [
   { label:"Classic asset",
-    note:"The trustline your wallet, anchor or SEP rail adds. Horizon and the SDKs speak this.",
+    note:"The trustline your wallet, anchor, or SEP rail adds. Horizon and the SDKs speak this.",
     value:"USDT0:GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q" },
   { label:"Token contract (SAC)",
     note:"The Stellar Smart Contract (Soroban) interface. Call this from contracts — lending markets, vaults, AMMs.",
