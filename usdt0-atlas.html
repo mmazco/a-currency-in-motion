@@ -101,12 +101,40 @@ svg{display:block;max-width:100%;height:auto}
 .n-s{font-family:"IBM Plex Mono",monospace;font-size:10px;fill:var(--ink-3);letter-spacing:.04em}
 .edge{stroke:currentColor;stroke-width:1;fill:none}
 .edge.dash{stroke-dasharray:5 4;stroke:var(--ink-3)}
-.e-lab{font-family:"IBM Plex Mono",monospace;font-size:10px;fill:var(--ink-2);letter-spacing:.05em}
-.pkt{fill:var(--accent-ink)}
-@keyframes flow{from{offset-distance:0%}to{offset-distance:100%}}
-.pkt.anim{offset-path:path("M 176 110 H 246");animation:flow 2.6s linear infinite}
-.pkt.anim.b{offset-path:path("M 420 110 H 498");animation-delay:.9s}
-.pkt.anim.c{offset-path:path("M 672 110 H 786");animation-delay:1.7s}
+/* One 12.5s cycle tells the whole story once: a packet leaves Ethereum, splits
+   at the fork, both halves land together, the far-chain half climbs into the
+   Stellar OFT, and one packet carries on. Every leg runs at the same ~55px/s —
+   each duration is that path's measured length over that rate — so the pacing
+   is uniform even though the legs are different lengths. Boxes light on arrival. */
+.pkt{fill:var(--accent-ink);opacity:0}
+.lit{fill:var(--accent-soft);stroke:var(--accent-ink);stroke-width:1.6;opacity:0}
+.pkt.pTrunk{offset-path:path("M 184 201 H 232");animation:pTrunk 12.5s linear infinite}
+@keyframes pTrunk{0%,0.00%{offset-distance:0%;opacity:0}0.50%{opacity:1}6.70%{opacity:1}7.20%,100%{offset-distance:100%;opacity:0}}
+.pkt.pUp{offset-path:path("M 232 201 V 110 H 286");animation:pUp 12.5s linear infinite}
+@keyframes pUp{0%,7.20%{offset-distance:0%;opacity:0}8.66%{opacity:1}26.54%{opacity:1}28.00%,100%{offset-distance:100%;opacity:0}}
+.pkt.pDown{offset-path:path("M 232 201 V 292 H 286");animation:pDown 12.5s linear infinite}
+@keyframes pDown{0%,7.20%{offset-distance:0%;opacity:0}8.66%{opacity:1}26.54%{opacity:1}28.00%,100%{offset-distance:100%;opacity:0}}
+.pkt.pClimb{offset-path:path("M 384 254 V 152");animation:pClimb 12.5s linear infinite}
+@keyframes pClimb{0%,32.80%{offset-distance:0%;opacity:0}33.86%{opacity:1}46.94%{opacity:1}48.00%,100%{offset-distance:100%;opacity:0}}
+.pkt.pMint{offset-path:path("M 478 110 H 528 V 201 H 574");animation:pMint 12.5s linear infinite}
+@keyframes pMint{0%,52.00%{offset-distance:0%;opacity:0}53.90%{opacity:1}77.30%{opacity:1}79.20%,100%{offset-distance:100%;opacity:0}}
+.pkt.pUse1{offset-path:path("M 764 171 H 812");animation:pUse1 12.5s linear infinite}
+@keyframes pUse1{0%,82.40%{offset-distance:0%;opacity:0}82.90%{opacity:1}89.10%{opacity:1}89.60%,100%{offset-distance:100%;opacity:0}}
+.pkt.pUse2{offset-path:path("M 764 201 H 812");animation:pUse2 12.5s linear infinite}
+@keyframes pUse2{0%,82.40%{offset-distance:0%;opacity:0}82.90%{opacity:1}89.10%{opacity:1}89.60%,100%{offset-distance:100%;opacity:0}}
+.pkt.pUse3{offset-path:path("M 764 231 H 812");animation:pUse3 12.5s linear infinite}
+@keyframes pUse3{0%,82.40%{offset-distance:0%;opacity:0}82.90%{opacity:1}89.10%{opacity:1}89.60%,100%{offset-distance:100%;opacity:0}}
+.lit.lEth{animation:lEth 12.5s linear infinite}
+@keyframes lEth{0%{opacity:0}0.00%{opacity:0}1.20%{opacity:1}4.40%{opacity:0}100%{opacity:0}}
+.lit.lOft{animation:lOft 12.5s linear infinite}
+@keyframes lOft{0%{opacity:0}28.00%{opacity:0}29.20%{opacity:1}32.40%{opacity:0}48.00%{opacity:0}49.20%{opacity:1}52.40%{opacity:0}100%{opacity:0}}
+.lit.lChain{animation:lChain 12.5s linear infinite}
+@keyframes lChain{0%{opacity:0}28.00%{opacity:0}29.20%{opacity:1}32.40%{opacity:0}100%{opacity:0}}
+.lit.lHot{animation:lHot 12.5s linear infinite}
+@keyframes lHot{0%{opacity:0}79.20%{opacity:0}80.40%{opacity:1}83.60%{opacity:0}100%{opacity:0}}
+.lit.lUse{animation:lUse 12.5s linear infinite}
+@keyframes lUse{0%{opacity:0}89.60%{opacity:0}90.80%{opacity:1}94.00%{opacity:0}100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){.pkt,.lit{animation:none;opacity:0}}
 
 /* ---------- fig 2: the USDT0 folder ---------- */
 /* One folder — USDT0 — with five layers stacked behind its cover, offset
@@ -153,15 +181,16 @@ dd code{
 .caveat b{color:var(--ink);font-weight:500}
 
 /* source links: quiet by default, accent on hover — a claim you can check */
-dd a,.id-note a,.only p a,.spec dd a,.dep-note a,.ncopy a{
+dd a,.id-note a,.only p a,.spec dd a,.dep-note a,.ncopy a,figcaption a{
   color:inherit;text-decoration:none;
   border-bottom:1px solid var(--rule);
 }
-dd a:hover,.id-note a:hover,.only p a:hover,.spec dd a:hover,.dep-note a:hover,.ncopy a:hover{
+dd a:hover,.id-note a:hover,.only p a:hover,.spec dd a:hover,.dep-note a:hover,.ncopy a:hover,
+figcaption a:hover{
   color:var(--accent-ink);border-bottom-color:var(--accent-ink);
 }
 dd a:focus-visible,.id-note a:focus-visible,.only p a:focus-visible,.spec dd a:focus-visible,
-.dep-note a:focus-visible,.ncopy a:focus-visible{
+.dep-note a:focus-visible,.ncopy a:focus-visible,figcaption a:focus-visible{
   outline:2px solid var(--accent-ink);outline-offset:2px;border-bottom-color:transparent;
 }
 dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
@@ -419,7 +448,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 }
 
 @media (prefers-reduced-motion: reduce){
-  .pkt.anim{animation:none}
+  .pkt,.lit{animation:none;opacity:0}
   .folder{transition:none}
   .folder[aria-selected="true"]{transform:none}
 }
@@ -448,70 +477,73 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   <figure id="arrival">
     <div class="fig-head"><span>Arrival &mdash; how USDT0 gets to Stellar</span></div>
     <div class="fig-body">
-      <svg viewBox="0 0 990 336" role="img" aria-label="Transferring USDT0 to Stellar burns it on the network it leaves and mints it natively on Stellar, carried by a LayerZero OFT message. A separate adapter on Ethereum holds real USDT backing supply one to one, and locks or unlocks it when Ethereum is one end of the transfer. The resulting Stellar asset feeds payment rails, treasury balances and lending markets, and the same route runs in reverse.">
+  <svg viewBox="0 0 990 420" role="img" aria-label="The USDT0 supply chain. USDT on Ethereum is locked and unlocked with the USDT0 adapter. From there one flow forks: Ethereum mints USDT0 directly on Stellar through Stellar's own OFT contract, and Ethereum also mints USDT0 on every other USDT0 chain, with an OFT on each USDT0-compatible network. Any of those chains can burn its USDT0 so Stellar's OFT mints instead, which never touches Ethereum. Either way the Stellar OFT is the single entry point, and what it mints is USDT0 on Stellar, a native Stellar asset compatible with existing toolkits, which feeds payment rails, treasury balances and lending markets. A dashed line shows the routes run the other way.">
         <defs>
-          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <marker id="c-ar" viewBox="0 0 10 10" refX="9.4" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
           </marker>
-          <marker id="ar-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <marker id="c-ar-s" viewBox="0 0 10 10" refX="9.4" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
             <path d="M0 0 L10 5 L0 10 z" fill="var(--ink-3)"/>
           </marker>
         </defs>
-
-        <rect class="n-box alt" x="30" y="66" width="146" height="68"/>
-        <rect class="n-box alt" x="26" y="70" width="146" height="68"/>
-        <rect class="n-box" x="22" y="74" width="146" height="68"/>
-        <text class="n-t" x="34" y="98">USDT0</text>
-        <text class="n-s" x="34" y="116">on other networks</text>
-        <text class="n-s" x="34" y="132">(USDT, on Ethereum)</text>
-
-        <line class="edge" x1="176" y1="110" x2="242" y2="110" marker-end="url(#ar)"/>
-        <text class="e-lab" x="182" y="104">transfer</text>
-        <circle class="pkt anim" r="3.2"/>
-
-        <rect class="n-box" x="246" y="62" width="174" height="96"/>
-        <text class="n-t" x="260" y="92">LayerZero OFT</text>
-        <text class="n-s" x="260" y="112">burn on the source,</text>
-        <text class="n-s" x="260" y="126">mint on the destination</text>
-        <text class="n-s" x="260" y="140">one supply, no wrapper</text>
-
-        <line class="edge" x1="333" y1="158" x2="333" y2="212"/>
-        <text class="e-lab" x="341" y="182">backs supply</text>
-        <text class="e-lab" x="341" y="198">1:1</text>
-        <rect class="n-box alt" x="246" y="212" width="174" height="54"/>
-        <text class="n-t" x="260" y="234">USDT0 Adapter</text>
-        <text class="n-s" x="260" y="252">Ethereum &middot; lock, unlock</text>
-
-        <line class="edge" x1="420" y1="110" x2="494" y2="110" marker-end="url(#ar)"/>
-        <text class="e-lab" x="432" y="102">mint</text>
-        <circle class="pkt anim b" r="3.2"/>
-
-        <rect class="n-box hot" x="498" y="62" width="174" height="96"/>
-        <text class="n-t hot" x="512" y="92">USDT0</text>
-        <text class="n-s" x="512" y="112">an ordinary Stellar</text>
-        <text class="n-s" x="512" y="126">asset + trustline —</text>
-        <text class="n-s" x="512" y="140">your SDK knows it</text>
-
-        <line class="edge" x1="672" y1="82" x2="786" y2="82" marker-end="url(#ar)"/>
-        <text class="e-lab" x="694" y="74">pay</text>
-        <line class="edge" x1="672" y1="110" x2="786" y2="110" marker-end="url(#ar)"/>
-        <text class="e-lab" x="694" y="103">hold</text>
-        <line class="edge" x1="672" y1="138" x2="786" y2="138" marker-end="url(#ar)"/>
-        <text class="e-lab" x="694" y="131">borrow</text>
-        <circle class="pkt anim c" r="3.2"/>
-
-        <rect class="n-box" x="790" y="68" width="176" height="28"/>
-        <text class="n-s" x="800" y="86">Payment rails</text>
-        <rect class="n-box" x="790" y="96" width="176" height="28"/>
-        <text class="n-s" x="800" y="114">Treasury balances</text>
-        <rect class="n-box" x="790" y="124" width="176" height="28"/>
-        <text class="n-s" x="800" y="142">Lending markets</text>
-
-        <path class="edge dash" d="M 585 158 L 585 300 L 95 300 L 95 146" marker-end="url(#ar-s)"/>
+        <!-- the routes run the other way too; drawn, not argued -->
+        <path class="edge dash" d="M 620 247 V 392 H 102 V 245" marker-end="url(#c-ar-s)"/>
+        <!-- where the backing sits, and the only place USDT is ever locked -->
+        <rect class="n-box" x="20" y="161" width="164" height="80"/>
+        <rect class="lit lEth" x="20" y="161" width="164" height="80"/>
+        <text class="n-t" x="34" y="188">USDT on Ethereum</text>
+        <text class="n-s" x="34" y="207">Locked / unlocked</text>
+        <text class="n-s" x="34" y="222">with USDT0 adapter</text>
+        <!-- one flow out of Ethereum, forking into two mints of equal length so
+             the two packets land on the same frame -->
+        <path class="edge" d="M 184 201 H 232"/>
+        <path class="edge" d="M 232 201 V 110 H 286" marker-end="url(#c-ar)"/>
+        <path class="edge" d="M 232 201 V 292 H 286" marker-end="url(#c-ar)"/>
+        <!-- a set of chains, not a step: two more behind the front one -->
+        <rect class="n-box alt" x="304" y="268" width="188" height="76"/>
+        <rect class="n-box alt" x="297" y="261" width="188" height="76"/>
+        <rect class="n-box" x="290" y="254" width="188" height="76"/>
+        <rect class="lit lChain" x="290" y="254" width="188" height="76"/>
+        <text class="n-t" x="304" y="282">USDT0 OFTs</text>
+        <text class="n-s" x="304" y="301">On each USDT0</text>
+        <text class="n-s" x="304" y="316">compatible network</text>
+        <!-- chain to chain: never touches Ethereum -->
+        <path class="edge" d="M 384 254 V 152" marker-end="url(#c-ar)"/>
+        <!-- the one Stellar-side entry point, and the contract listed under Deploy -->
+        <rect class="n-box" x="290" y="72" width="188" height="76"/>
+        <rect class="lit lOft" x="290" y="72" width="188" height="76"/>
+        <text class="n-t" x="304" y="100">Stellar OFT</text>
+        <text class="n-s" x="304" y="119">The contract that mints</text>
+        <text class="n-s" x="304" y="134">and burns USDT0 here</text>
+        <path class="edge" d="M 478 110 H 528 V 201 H 574" marker-end="url(#c-ar)"/>
+        <rect class="n-box hot" x="578" y="155" width="186" height="92"/>
+        <rect class="lit lHot" x="578" y="155" width="186" height="92"/>
+        <text class="n-t hot" x="592" y="182">USDT0 on Stellar</text>
+        <text class="n-s" x="592" y="202">A native Stellar asset</text>
+        <text class="n-s" x="592" y="217">compatible with</text>
+        <text class="n-s" x="592" y="232">existing toolkits</text>
+        <line class="edge" x1="764" y1="171" x2="812" y2="171" marker-end="url(#c-ar)"/>
+        <line class="edge" x1="764" y1="201" x2="812" y2="201" marker-end="url(#c-ar)"/>
+        <line class="edge" x1="764" y1="231" x2="812" y2="231" marker-end="url(#c-ar)"/>
+        <rect class="n-box" x="816" y="157" width="164" height="28"/>
+        <rect class="lit lUse" x="816" y="157" width="164" height="28"/>
+        <text class="n-s" x="828" y="175">Payment rails</text>
+        <rect class="n-box" x="816" y="187" width="164" height="28"/>
+        <rect class="lit lUse" x="816" y="187" width="164" height="28"/>
+        <text class="n-s" x="828" y="205">Treasury balances</text>
+        <rect class="n-box" x="816" y="217" width="164" height="28"/>
+        <rect class="lit lUse" x="816" y="217" width="164" height="28"/>
+        <text class="n-s" x="828" y="235">Lending markets</text>
+        <circle class="pkt pTrunk" r="3.4"/><circle class="pkt pUp" r="3.4"/>
+        <circle class="pkt pDown" r="3.4"/><circle class="pkt pClimb" r="3.4"/>
+        <circle class="pkt pMint" r="3.4"/><circle class="pkt pUse1" r="3.4"/>
+        <circle class="pkt pUse2" r="3.4"/><circle class="pkt pUse3" r="3.4"/>
       </svg>
     </div>
-    <figcaption>Native, not wrapped &mdash; burn and mint at each end, except on Ethereum, where the
-    adapter locks and unlocks, backing supply rather than routing transfers between other networks.</figcaption>
+    <figcaption>Stellar&rsquo;s OFT mints the USDT0, whether Ethereum locked the USDT or another chain
+    burned its own. Every chain runs its own OFT; Ethereum alone locks the USDT that backs them all
+    (<a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer">USDT0
+    developer docs</a>).</figcaption>
   </figure>
 
   <!-- ============ FIGURE 2 — the USDT0 folder ============ -->
