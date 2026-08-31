@@ -151,15 +151,15 @@ dd code{
 .caveat b{color:var(--ink);font-weight:500}
 
 /* source links: quiet by default, accent on hover — a claim you can check */
-dd a,.id-note a,.only p a,.spec dd a,.dep-note a,.ncopy a{
+dd a,.id-note a,.only p a,.spec dd a,.dep-note a,.ncopy a,figcaption a,.mk-note a{
   color:inherit;text-decoration:none;
   border-bottom:1px solid var(--rule);
 }
-dd a:hover,.id-note a:hover,.only p a:hover,.spec dd a:hover,.dep-note a:hover,.ncopy a:hover{
+dd a:hover,.id-note a:hover,.only p a:hover,.spec dd a:hover,.dep-note a:hover,.ncopy a:hover,figcaption a:hover,.mk-note a:hover{
   color:var(--accent-ink);border-bottom-color:var(--accent-ink);
 }
 dd a:focus-visible,.id-note a:focus-visible,.only p a:focus-visible,.spec dd a:focus-visible,
-.dep-note a:focus-visible,.ncopy a:focus-visible{
+.dep-note a:focus-visible,.ncopy a:focus-visible,figcaption a:focus-visible,.mk-note a:focus-visible{
   outline:2px solid var(--accent-ink);outline-offset:2px;border-bottom-color:transparent;
 }
 dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
@@ -535,17 +535,19 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
     <figcaption><b>Two routes in.</b> From another USDT0 chain, that chain&rsquo;s own OFT burns the
     tokens and a LayerZero message tells Stellar&rsquo;s OFT to mint. From Ethereum, the adapter locks
     real USDT instead of burning. Every chain has its own OFT contract &mdash; there is no hub, and a
-    transfer between two non-Ethereum chains never touches Ethereum.</figcaption>
+    transfer between two non-Ethereum chains never touches Ethereum.
+    Architecture per the <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer">USDT0 developer
+    docs</a>.</figcaption>
   </figure>
 
   <div class="mk-note">
     <b>Corrected against the technical diagram.</b> My first version put a single
     &ldquo;LayerZero OFT&rdquo; box in the middle that both paths passed through. That invented a hub.
-    The USDT0 docs are explicit: Ethereum runs <code>OAdapterUpgradeable</code> and every other chain
+    The <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer">USDT0 docs</a> are explicit: Ethereum runs <code>OAdapterUpgradeable</code> and every other chain
     runs its own <code>OUpgradeable</code>, so the OFT is per chain and the message travels
     contract to contract. LayerZero is now the arrow, not a node &mdash; which is what it is.
     <br><br>
-    <b>Reverse is real.</b> The docs describe it directly: going back, the OFT
+    <b>Reverse is real.</b> The <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer">same page</a> describes it directly: going back, the OFT
     &ldquo;burns tokens on Chain A&rdquo; and &ldquo;a message instructs the USDT0 Adapter to unlock
     tokens on Ethereum.&rdquo; So Stellar can send to another chain, which mints, or back to Ethereum,
     which unlocks. The return line says that rather than implying a symmetric round trip.
