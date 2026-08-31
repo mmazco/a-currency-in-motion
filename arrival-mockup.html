@@ -423,15 +423,15 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 }
 
 /* mockup-only */
-.lab-chip{fill:var(--paper-2)}
-.rev-lab{dominant-baseline:middle}
 .p-tag{
   font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;
   text-transform:uppercase;fill:var(--accent-ink);
 }
-.pkt.p1{offset-path:path("M 400 90 H 470 V 168 H 512");animation:flow 3s linear infinite}
-.pkt.p2{offset-path:path("M 400 270 H 470 V 192 H 512");animation:flow 3s linear infinite;animation-delay:1.1s}
-.pkt.p3{offset-path:path("M 712 180 H 756");animation:flow 3s linear infinite;animation-delay:2s}
+.pkt.p1{offset-path:path("M 400 90 H 470 V 168 H 512");animation:flow var(--pace,3s) linear infinite}
+.pkt.p2{offset-path:path("M 400 270 H 470 V 192 H 512");animation:flow var(--pace,3s) linear infinite}
+/* p3 is a quarter the length, so a quarter the duration keeps the speed equal
+   and lands its restart on the others every cycle */
+.pkt.p3{offset-path:path("M 712 180 H 756");animation:flow calc(var(--pace,3s)/4) linear infinite}
 .mk-note{
   border:1px solid var(--rule);background:var(--paper-2);padding:14px 16px;
   margin:34px 0 0;font-size:13.5px;line-height:1.6;color:var(--ink-2);
@@ -483,6 +483,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 
       <path class="edge" d="M 400 90 H 470 V 168 H 512" marker-end="url(#m-ar)"/>
       <text class="e-lab" x="406" y="82">LayerZero message</text>
+      <text class="e-lab" x="478" y="162">mint</text>
       <circle class="pkt p1" r="3.2"/>
 
       <!-- ---- path 2: Ethereum. The adapter locks real USDT. ---- -->
@@ -502,11 +503,10 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 
       <!-- ---- Stellar mints through its own OFT ---- -->
       <rect class="n-box hot" x="516" y="126" width="196" height="108"/>
-      <text class="n-t hot" x="530" y="156">USDT0 on Stellar</text>
-      <text class="n-s" x="530" y="176">minted by Stellar&#8217;s own OFT</text>
-      <text class="n-s" x="530" y="192">an ordinary Stellar asset</text>
-      <text class="n-s" x="530" y="208">+ trustline &#8212; your SDK</text>
-      <text class="n-s" x="530" y="224">already knows it</text>
+      <text class="n-t hot" x="530" y="164">USDT0 on Stellar</text>
+      <text class="n-s" x="530" y="186">an ordinary Stellar asset</text>
+      <text class="n-s" x="530" y="202">+ trustline &#8212; your SDK</text>
+      <text class="n-s" x="530" y="218">already knows it</text>
 
       <line class="edge" x1="712" y1="152" x2="756" y2="152" marker-end="url(#m-ar)"/>
       <text class="e-lab" x="715" y="144">pay</text>
@@ -527,35 +527,24 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
       <path class="edge dash" d="M 614 234 V 348 H 22 V 90"/>
       <line class="edge dash" x1="22" y1="90" x2="36" y2="90" marker-end="url(#m-ar-s)"/>
       <line class="edge dash" x1="22" y1="270" x2="36" y2="270" marker-end="url(#m-ar-s)"/>
-      <rect class="lab-chip" x="242" y="337" width="393" height="19"/>
-      <text class="e-lab rev-lab" x="250" y="348">in reverse: burn on Stellar, mint or unlock at the far end</text>
     </svg>
     </div>
-    <figcaption><b>Two routes in.</b> From another USDT0 chain, that chain&rsquo;s own OFT burns the
-    tokens and a LayerZero message tells Stellar&rsquo;s OFT to mint. From Ethereum, the adapter locks
-    real USDT instead of burning. Every chain has its own OFT contract &mdash; there is no hub, and a
-    transfer between two non-Ethereum chains never touches Ethereum.
-    Stellar&rsquo;s OFT is the <a href="https://stellar.expert/explorer/public/contract/CBOWOLFSDM5PZXNFIVDMP5NZ7U2GSIHED6H6R446QOHF266XINKUMMF6" target="_blank" rel="noopener noreferrer">contract
-    listed under Deploy</a>; architecture per the
-    <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer">USDT0
-    developer docs</a>.</figcaption>
+    <figcaption>Every chain runs its own OFT &mdash; Ethereum uses
+    <code>OAdapterUpgradeable</code>, every other chain <code>OUpgradeable</code>
+    (<a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer">USDT0
+    developer docs</a>).</figcaption>
   </figure>
 
   <div class="mk-note">
-    <b>Corrected against the technical diagram.</b> My first version put a single
-    &ldquo;LayerZero OFT&rdquo; box in the middle that both paths passed through. That invented a hub.
-    The <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer">USDT0 docs</a> are explicit: Ethereum runs <code>OAdapterUpgradeable</code> and every other chain
-    runs its own <code>OUpgradeable</code>, so the OFT is per chain and the message travels
-    contract to contract. LayerZero is now the arrow, not a node &mdash; which is what it is.
+    <b>What to check.</b> Three claims carry the diagram. One, the adapter is Ethereum-only
+    &mdash; it locks and unlocks real USDT, and sits on path 2 alone. Two, every other chain runs
+    its own OFT, so a transfer between two non-Ethereum chains never touches Ethereum. Three,
+    LayerZero is the message between those contracts, not a component of its own, which is why it
+    is drawn as the arrow.
     <br><br>
-    <b>Reverse is real.</b> The <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer">same page</a> describes it directly: going back, the OFT
-    &ldquo;burns tokens on Chain A&rdquo; and &ldquo;a message instructs the USDT0 Adapter to unlock
-    tokens on Ethereum.&rdquo; So Stellar can send to another chain, which mints, or back to Ethereum,
-    which unlocks. The return line says that rather than implying a symmetric round trip.
-    <br><br>
-    <b>Still to decide.</b> The numbered flows in the engineering diagram are one journey
-    &mdash; Ethereum to B, B to A, A back to Ethereum. This figure shows arrival on Stellar instead,
-    which is the page&rsquo;s subject. If you would rather mirror their numbering, that is a different
-    diagram, not a tweak to this one.
+    <b>Deliberate omissions.</b> The dashed line shows a transfer can run the other way without
+    saying so in words. The engineering diagram numbers a round trip &mdash; Ethereum to B, B to A,
+    A back to Ethereum &mdash; where this shows arrival on Stellar, which is the page&rsquo;s subject.
+    Stellar&rsquo;s OFT is the <a href="https://stellar.expert/explorer/public/contract/CBOWOLFSDM5PZXNFIVDMP5NZ7U2GSIHED6H6R446QOHF266XINKUMMF6" target="_blank" rel="noopener noreferrer">contract already listed under Deploy</a>.
   </div>
 </div>
