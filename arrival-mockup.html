@@ -423,6 +423,8 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 }
 
 /* mockup-only */
+.lab-chip{fill:var(--paper-2)}
+.rev-lab{dominant-baseline:middle}
 .p-tag{
   font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;
   text-transform:uppercase;fill:var(--accent-ink);
@@ -526,8 +528,12 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
       <text class="n-s" x="852" y="212">Lending markets</text>
 
       <!-- either route runs in reverse -->
-      <path class="edge dash" d="M 724 228 V 348 H 26 V 126" marker-end="url(#m-ar-s)"/>
-      <text class="e-lab" x="300" y="342">either route runs in reverse</text>
+      <!-- the return serves both paths, so it branches to both sources -->
+      <path class="edge dash" d="M 724 228 V 348 H 26 V 90"/>
+      <line class="edge dash" x1="26" y1="90" x2="46" y2="90" marker-end="url(#m-ar-s)"/>
+      <line class="edge dash" x1="26" y1="270" x2="46" y2="270" marker-end="url(#m-ar-s)"/>
+      <rect class="lab-chip" x="292" y="341" width="198" height="19"/>
+      <text class="e-lab rev-lab" x="300" y="352">either route runs in reverse</text>
     </svg>
     </div>
     <figcaption><b>Two routes in.</b> From another USDT0 network, the asset is burned there and
