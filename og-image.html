@@ -19,8 +19,16 @@ html,body{margin:0;background:#EFEFEF}
   padding:64px 72px 56px;display:flex;flex-direction:column;justify-content:space-between;
 }
 .top{display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:16px}
-.brand img{width:44px;height:44px;display:block}
+/* Stellar then USDT0, both marks rendered at the same 44px so neither
+   brand reads as the junior partner. The USDT0 file carried 63% transparent
+   padding, which would have shrunk it against the Stellar mark, so it is
+   trimmed to its own ink first. */
+.brand{display:flex;align-items:center;gap:20px}
+.brand .mark{width:44px;height:44px;display:block}
+.brand .word{font-weight:600;font-size:24px;letter-spacing:-.01em;color:var(--ink)}
+.lockup{display:flex;align-items:center;gap:13px}
+.lockup img.usdt0{height:44px;width:auto;display:block}
+.sep{width:1px;height:34px;background:var(--rule)}
 .eyebrow{
   font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:17px;
   letter-spacing:.17em;text-transform:uppercase;color:var(--ink-2);
@@ -49,16 +57,16 @@ p{margin:0;font-size:27px;line-height:1.42;color:var(--ink-2);max-width:44ch}
 
   <div class="top">
     <span class="brand">
-      <img src="stellar-mark.png" alt="">
-      <span class="eyebrow">Stellar</span>
+      <span class="lockup"><img class="mark" src="stellar-mark.png" alt="Stellar"><span class="word">Stellar</span></span>
+      <span class="sep"></span>
+      <span class="lockup"><img class="usdt0" src="usdt0-lockup.png" alt="USDT0"></span>
     </span>
     <span class="dots"><i></i><i></i><i></i><i></i><i></i></span>
   </div>
 
   <div>
     <h1>USDT0 on <em>Stellar Network</em></h1>
-    <p>How it arrives, what it unlocks, the contract addresses, and what to
-       check before you build.</p>
+    <p>A guide to USDT0 on Stellar, and everything you need to get started.</p>
   </div>
 
   <div class="foot">
