@@ -40,6 +40,10 @@ faces = pathlib.Path('fonts/faces.css').read_text().strip()
 head = head.replace(gf.group(0), f'<style>\n{faces}\n</style>\n')
 assert 'fonts.googleapis.com' not in head and 'fonts.gstatic.com' not in head
 
+# --- on the docs domain these are same-origin, so drop the hostname ---
+head = head.replace('https://developers.stellar.org/img/docusaurus/favicon-96x96.png',
+                    '/img/docusaurus/favicon-96x96.png')
+
 # --- this copy has a permanent address ---
 head = head.replace('<meta name="twitter:card" content="summary">',
     f'<meta name="twitter:card" content="summary">\n'

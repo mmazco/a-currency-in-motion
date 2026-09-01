@@ -1,0 +1,69 @@
+<meta charset="utf-8">
+<title>og</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#FFFFFF; --paper-2:#F9F9F9;
+  --ink:#0F0F0F; --ink-2:#4A4A4A; --ink-3:#6B6B6B;
+  --rule:#D8D8D8; --accent:#FDDA24; --accent-ink:#7A5C00;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#EFEFEF}
+/* exactly the size Open Graph and summary_large_image want, so nothing is
+   resampled or letterboxed by the platform */
+.card{
+  width:1200px;height:630px;background:var(--paper);color:var(--ink);
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  padding:64px 72px 56px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.top{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:16px}
+.brand img{width:44px;height:44px;display:block}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:17px;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--ink-2);
+}
+/* the section markers from the page, all filled: this is the whole thing */
+.dots{display:flex;gap:9px}
+.dots i{width:15px;height:15px;background:var(--accent);border:1.5px solid var(--accent-ink)}
+
+h1{
+  font-weight:600;font-size:92px;line-height:1.03;letter-spacing:-.032em;
+  margin:0 0 22px;max-width:15ch;
+}
+h1 em{font-style:normal;color:var(--accent-ink)}
+p{margin:0;font-size:27px;line-height:1.42;color:var(--ink-2);max-width:44ch}
+
+.foot{
+  display:flex;align-items:baseline;justify-content:space-between;
+  border-top:1px solid var(--rule);padding-top:20px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:18px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+}
+.foot b{font-weight:400;color:var(--ink-2)}
+</style>
+
+<div class="card">
+
+  <div class="top">
+    <span class="brand">
+      <img src="stellar-mark.png" alt="">
+      <span class="eyebrow">Stellar</span>
+    </span>
+    <span class="dots"><i></i><i></i><i></i><i></i><i></i></span>
+  </div>
+
+  <div>
+    <h1>USDT0 on <em>Stellar Network</em></h1>
+    <p>How it arrives, what it unlocks, the contract addresses, and what to
+       check before you build.</p>
+  </div>
+
+  <div class="foot">
+    <span><b>developers.stellar.org</b>/launch/usdt0</span>
+    <span>Stellar Development Foundation</span>
+  </div>
+
+</div>
