@@ -1,0 +1,282 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>USDT0 on Stellar — square</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#FFFFFF; --paper-2:#F9F9F9; --paper-3:#F2F2F2;
+  --ink:#0F0F0F; --ink-2:#4A4A4A; --ink-3:#6B6B6B;
+  --rule:#D8D8D8; --rule-2:#E6E6E6;
+  --accent:#FDDA24; --accent-soft:#FDDA2440;
+  --accent-ink:#7A5C00; --on-accent:#0F0F0F;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F0F0F; --paper-2:#191919; --paper-3:#080808;
+    --ink:#F5F5F0; --ink-2:#B8B8B0; --ink-3:#8E8E86;
+    --rule:#474747; --rule-2:#333333;
+    --accent:#FDDA24; --accent-soft:#FDDA2422;
+    --accent-ink:#FDDA24; --on-accent:#0F0F0F;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F0F0F; --paper-2:#191919; --paper-3:#080808;
+  --ink:#F5F5F0; --ink-2:#B8B8B0; --ink-3:#8E8E86;
+  --rule:#474747; --rule-2:#333333;
+  --accent:#FDDA24; --accent-soft:#FDDA2422;
+  --accent-ink:#FDDA24; --on-accent:#0F0F0F;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper-3)}
+body{display:flex;align-items:flex-start;justify-content:center;min-height:100vh}
+
+/* The stage is exactly 1080x1080 so a screen recording or a screenshot comes
+   out at native social dimensions. It is only scaled down when the viewport
+   cannot hold it, never up. */
+#fit{transform-origin:top center}
+.stage{
+  width:1080px;height:1080px;background:var(--paper);color:var(--ink);
+  font-family:"Inter","Helvetica Neue",Arial,sans-serif;
+  padding:54px 60px 46px;display:flex;flex-direction:column;
+}
+
+/* ---------- header ---------- */
+.hd{
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:17px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);
+}
+.dots{display:flex;gap:9px}
+/* the same square marker the page uses for its section nav, doing the same job:
+   where you are in a sequence */
+.dot{width:16px;height:16px;border:1.5px solid var(--ink-3);background:transparent;
+     transition:background .35s ease,border-color .35s ease}
+.dot.on{background:var(--accent);border-color:var(--accent-ink)}
+
+/* ---------- chapter title ---------- */
+.title{
+  font-weight:600;font-size:46px;line-height:1.1;letter-spacing:-.028em;
+  margin:30px 0 26px;min-height:104px;max-width:19ch;
+}
+.title em{font-style:normal;color:var(--accent-ink)}
+.title span{display:inline-block;opacity:0;transform:translateY(9px);
+  animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ---------- framed scene ---------- */
+.frame{flex:1;border:1px solid var(--rule);background:var(--paper-2);
+       display:flex;align-items:center;justify-content:center;padding:16px}
+svg{display:block;width:100%;height:auto}
+
+/* ---------- footer ---------- */
+.ft{
+  display:flex;align-items:center;justify-content:space-between;padding-top:20px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+}
+.ft b{font-weight:400;color:var(--ink-2)}
+
+/* ---------- scene primitives (same language as Fig 1 on the page) ---------- */
+.n-box{fill:var(--paper-2);stroke:var(--ink);stroke-width:1.4}
+.n-box.alt{fill:var(--paper-3);stroke:var(--ink-3)}
+.n-box.hot{stroke:var(--accent-ink);stroke-width:2;fill:var(--accent-soft)}
+.n-t{font-family:"Inter",Arial,sans-serif;font-weight:600;font-size:19px;fill:var(--ink)}
+.n-t.hot{fill:var(--accent-ink)}
+.n-s{font-family:"IBM Plex Mono",monospace;font-size:13px;fill:var(--ink-3);letter-spacing:.03em}
+.edge{stroke:var(--ink);stroke-width:1.4;fill:none}
+.edge.dash{stroke-dasharray:6 5;stroke:var(--ink-3);stroke-width:1.2}
+
+/* Everything starts recessed; each chapter lifts only what it is about, so the
+   eye is led rather than left to hunt. */
+.g{opacity:.26;transition:opacity .55s ease}
+.g.up{opacity:1}
+.pkt{fill:var(--accent-ink);opacity:0}
+.lit{fill:var(--accent-soft);stroke:var(--accent-ink);stroke-width:2;opacity:0;
+     transition:opacity .4s ease}
+.lit.on{opacity:1}
+
+@keyframes run{from{offset-distance:0%}to{offset-distance:100%}}
+/* One marker per chapter, each on a single unbroken path from where it starts
+   to where it lands. Splitting a journey across two markers made the short leg
+   loop fast enough to read as a stuck dot. Durations are the measured path
+   length over ~120px/s, except the mint leg — at 42px a shared rate strobes,
+   so it gets a slower speed of its own. */
+.pkt.pDirect{offset-path:path("M 480 112 V 342");animation:run 1.9s linear infinite}
+.pkt.pOther {offset-path:path("M 480 112 V 168 H 180 V 204");animation:run 3.3s linear infinite}
+.pkt.pBurn  {offset-path:path("M 180 314 V 400 H 332");animation:run 2.0s linear infinite}
+.pkt.pMint  {offset-path:path("M 480 452 V 494");animation:run .8s linear infinite}
+.pkt.on{opacity:1}
+
+/* The fan-out used three markers on paths of 358, 48 and 358 — they could not
+   arrive together at one speed, and equalising duration would have crawled the
+   middle one. The arrows already show the fan, so the boxes light in a
+   left-to-right sweep instead and no marker is needed. */
+#litU2{transition-delay:.12s}
+#litU3{transition-delay:.24s}
+@media (prefers-reduced-motion: reduce){.pkt{animation:none;opacity:0}}
+</style>
+
+<div id="fit"><div class="stage">
+
+  <div class="hd">
+    <span>USDT0 on Stellar Network</span>
+    <span class="dots" id="dots"></span>
+  </div>
+
+  <h1 class="title" id="title"></h1>
+
+  <div class="frame">
+    <svg viewBox="0 0 960 730" role="img" aria-label="How USDT0 reaches Stellar: USDT is locked on Ethereum, which mints USDT0 either straight onto Stellar or onto any other USDT0-compatible network. Those networks can burn their USDT0 so Stellar's OFT mints instead. Either way the Stellar OFT is the single entry point, and what it mints is USDT0 on Stellar, which feeds payments, treasury balances and lending markets.">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="9.2" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/>
+        </marker>
+      </defs>
+
+      <!-- ORIGIN -->
+      <g class="g" id="gEth">
+        <rect class="n-box" x="340" y="20" width="280" height="92"/>
+        <rect class="lit" id="litEth" x="340" y="20" width="280" height="92"/>
+        <text class="n-t" x="362" y="55">USDT on Ethereum</text>
+        <text class="n-s" x="362" y="80">Locked / unlocked</text>
+        <text class="n-s" x="362" y="98">with USDT0 adapter</text>
+      </g>
+
+      <!-- shared trunk, then the fork -->
+      <path class="edge g" id="eTrunk" d="M 480 112 V 168"/>
+      <path class="edge g" id="eDirect" d="M 480 168 V 342" marker-end="url(#a)"/>
+      <path class="edge g" id="eOther"  d="M 480 168 H 180 V 204" marker-end="url(#a)"/>
+
+      <!-- THE OTHER NETWORKS — a set, not a step -->
+      <g class="g" id="gOther">
+        <rect class="n-box alt" x="60" y="224" width="240" height="110"/>
+        <rect class="n-box alt" x="50" y="214" width="240" height="110"/>
+        <rect class="n-box" x="40" y="204" width="240" height="110"/>
+        <rect class="lit" id="litOther" x="40" y="204" width="240" height="110"/>
+        <text class="n-t" x="60" y="240">USDT0 OFTs</text>
+        <text class="n-s" x="60" y="266">Each compatible</text>
+        <text class="n-s" x="60" y="284">network has its</text>
+        <text class="n-s" x="60" y="302">own contract</text>
+      </g>
+      <path class="edge g" id="eBurn" d="M 180 314 V 400 H 332" marker-end="url(#a)"/>
+
+      <!-- THE ONE ENTRY POINT -->
+      <g class="g" id="gOft">
+        <rect class="n-box" x="340" y="346" width="280" height="106"/>
+        <rect class="lit" id="litOft" x="340" y="346" width="280" height="106"/>
+        <text class="n-t" x="362" y="382">Stellar OFT</text>
+        <text class="n-s" x="362" y="407">The contract that mints</text>
+        <text class="n-s" x="362" y="425">and burns USDT0 on Stellar</text>
+      </g>
+      <path class="edge g" id="eMint" d="M 480 452 V 494" marker-end="url(#a)"/>
+
+      <!-- WHAT LANDS -->
+      <g class="g" id="gHot">
+        <rect class="n-box hot" x="340" y="498" width="280" height="114"/>
+        <rect class="lit" id="litHot" x="340" y="498" width="280" height="114"/>
+        <text class="n-t hot" x="362" y="534">USDT0 on Stellar</text>
+        <text class="n-s" x="362" y="560">A native Stellar asset</text>
+        <text class="n-s" x="362" y="578">compatible with</text>
+        <text class="n-s" x="362" y="596">existing toolkits</text>
+      </g>
+
+      <!-- WHAT IT IS FOR -->
+      <path class="edge g" id="eU1" d="M 480 612 V 640 H 170 V 660" marker-end="url(#a)"/>
+      <path class="edge g" id="eU2" d="M 480 612 V 660" marker-end="url(#a)"/>
+      <path class="edge g" id="eU3" d="M 480 612 V 640 H 790 V 660" marker-end="url(#a)"/>
+      <g class="g" id="gUse">
+        <rect class="n-box" x="40" y="664" width="260" height="46"/>
+        <rect class="lit" id="litU1" x="40" y="664" width="260" height="46"/>
+        <text class="n-s" x="60" y="693">Payment rails</text>
+        <rect class="n-box" x="350" y="664" width="260" height="46"/>
+        <rect class="lit" id="litU2" x="350" y="664" width="260" height="46"/>
+        <text class="n-s" x="370" y="693">Treasury balances</text>
+        <rect class="n-box" x="660" y="664" width="260" height="46"/>
+        <rect class="lit" id="litU3" x="660" y="664" width="260" height="46"/>
+        <text class="n-s" x="680" y="693">Lending markets</text>
+      </g>
+
+      <circle class="pkt pDirect" r="5"/><circle class="pkt pOther" r="5"/>
+      <circle class="pkt pBurn" r="5"/><circle class="pkt pMint" r="5"/>
+    </svg>
+  </div>
+
+  <div class="ft">
+    <span><b>developers.stellar.org</b>/launch/usdt0</span>
+    <span>Stellar Development Foundation</span>
+  </div>
+
+</div></div>
+
+<script>
+// Each chapter names what it lifts, what it lights, and what moves. Keeping the
+// three in one place is what stops the copy and the picture drifting apart.
+const CHAPTERS = [
+  { title:'It starts on <em>Ethereum</em>',
+    up:['gEth'], lit:['litEth'], pkt:[] },
+  { title:'One hop to <em>Stellar</em>',
+    up:['gEth','eTrunk','eDirect','gOft'], lit:['litOft'], pkt:['pDirect'] },
+  { title:'Or from any <em>other network</em>',
+    up:['gEth','eTrunk','eOther','gOther'], lit:['litOther'], pkt:['pOther'] },
+  { title:'Both arrive at the <em>same contract</em>',
+    up:['gOther','eBurn','gOft','eDirect'], lit:['litOft'], pkt:['pBurn'] },
+  { title:'What it mints is a <em>native Stellar asset</em>',
+    up:['gOft','eMint','gHot'], lit:['litHot'], pkt:['pMint'] },
+  { title:'Pay. Hold. <em>Borrow.</em>',
+    up:['gHot','eU1','eU2','eU3','gUse'], lit:['litU1','litU2','litU3'], pkt:[] },
+  { title:'USDT0 is now available on the <em>Stellar Network</em>',
+    up:['gEth','eTrunk','eDirect','eOther','gOther','eBurn','gOft','eMint','gHot','eU1','eU2','eU3','gUse'],
+    lit:[], pkt:[] }
+];
+const HOLD_MS = { v: 4600 };   // page default; ?hold= overrides it for exports
+
+const dots = document.getElementById('dots');
+CHAPTERS.forEach(() => dots.insertAdjacentHTML('beforeend','<span class="dot"></span>'));
+const dotEls = [...dots.children];
+const titleEl = document.getElementById('title');
+
+function paint(i){
+  const c = CHAPTERS[i];
+  dotEls.forEach((d,n) => d.classList.toggle('on', n <= i));
+
+  // re-create the spans so the rise animation replays on every chapter
+  titleEl.innerHTML = '';
+  const html = c.title.split(' ').map((w,n) =>
+    `<span style="animation-delay:${n*45}ms">${w}</span>`).join(' ');
+  titleEl.innerHTML = html;
+
+  document.querySelectorAll('.g').forEach(g => g.classList.remove('up'));
+  c.up.forEach(id => document.getElementById(id).classList.add('up'));
+  document.querySelectorAll('.lit').forEach(l => l.classList.remove('on'));
+  c.lit.forEach(id => document.getElementById(id).classList.add('on'));
+  document.querySelectorAll('.pkt').forEach(p => p.classList.remove('on'));
+  c.pkt.forEach(cl => document.querySelector('.pkt.'+cl).classList.add('on'));
+}
+
+let i = 0;
+window.__chapter = n => { i = n; paint(n); };          // for stills
+
+// ?c=N freezes on one chapter (1-based) so an export is reproducible rather
+// than a lucky screenshot. Without it the sequence runs on a loop.
+const q = new URLSearchParams(location.search);
+if (q.get('hold')) HOLD_MS.v = +q.get('hold');   // shorter beats for a video cut
+const pin = q.get('c');
+if (pin) {
+  paint(Math.min(Math.max(+pin,1), CHAPTERS.length) - 1);
+} else {
+  paint(0);
+  window.__timer = setInterval(() => { i = (i+1) % CHAPTERS.length; paint(i); }, HOLD_MS.v);
+}
+
+// scale down to fit a small window, never up — 1080 stays 1080 for capture
+function fit(){
+  const s = Math.min(1, window.innerWidth/1080, window.innerHeight/1080);
+  document.getElementById('fit').style.transform = `scale(${s})`;
+  document.body.style.height = (1080*s)+'px';
+}
+fit(); addEventListener('resize', fit);
+</script>
