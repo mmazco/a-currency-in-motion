@@ -445,7 +445,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 @keyframes pUp{0%,7.20%{offset-distance:0%;opacity:0}8.66%{opacity:1}26.54%{opacity:1}28.00%,100%{offset-distance:100%;opacity:0}}
 .pkt.pDown{offset-path:path("M 232 201 V 292 H 286");animation:pDown 12.5s linear infinite}
 @keyframes pDown{0%,7.20%{offset-distance:0%;opacity:0}8.66%{opacity:1}26.54%{opacity:1}28.00%,100%{offset-distance:100%;opacity:0}}
-.pkt.pClimb{offset-path:path("M 384 254 V 152");animation:pClimb 12.5s linear infinite}
+.pkt.pClimb{offset-path:path("M 384 254 V 168");animation:pClimb 12.5s linear infinite}
 @keyframes pClimb{0%,32.80%{offset-distance:0%;opacity:0}33.86%{opacity:1}46.94%{opacity:1}48.00%,100%{offset-distance:100%;opacity:0}}
 .pkt.pMint{offset-path:path("M 478 110 H 528 V 201 H 574");animation:pMint 12.5s linear infinite}
 @keyframes pMint{0%,52.00%{offset-distance:0%;opacity:0}53.90%{opacity:1}77.30%{opacity:1}79.20%,100%{offset-distance:100%;opacity:0}}
@@ -536,16 +536,17 @@ figcaption a:hover,.mk-note a:hover{color:var(--accent-ink);border-bottom-color:
       <text class="n-s" x="304" y="316">compatible network</text>
 
       <!-- chain to chain: never touches Ethereum -->
-      <path class="edge" d="M 384 254 V 152" marker-end="url(#c-ar)"/>
+      <path class="edge" d="M 384 254 V 168" marker-end="url(#c-ar)"/>
       <text class="e-lab" x="400" y="196">burn there</text>
       <text class="e-lab" x="400" y="212">mint on Stellar</text>
 
       <!-- the one Stellar-side entry point, and the contract listed under Deploy -->
-      <rect class="n-box" x="290" y="72" width="188" height="76"/>
-      <rect class="lit lOft" x="290" y="72" width="188" height="76"/>
+      <rect class="n-box" x="290" y="72" width="188" height="92"/>
+      <rect class="lit lOft" x="290" y="72" width="188" height="92"/>
       <text class="n-t" x="304" y="100">Stellar OFT</text>
-      <text class="n-s" x="304" y="119">The contract that mints</text>
-      <text class="n-s" x="304" y="134">and burns USDT0 here</text>
+      <text class="n-s" x="304" y="119">The contract that</text>
+      <text class="n-s" x="304" y="134">mints and burns</text>
+      <text class="n-s" x="304" y="149">USDT0 on Stellar</text>
 
       <path class="edge" d="M 478 110 H 528 V 201 H 574" marker-end="url(#c-ar)"/>
       <text class="e-lab" x="484" y="102">mint</text>
