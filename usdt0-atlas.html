@@ -1,9 +1,6 @@
 <!doctype html>
 <html lang="en">
-<!-- This page is a copy of access-lab.html, which is the file the Claude
-     artifact publishes from. Change access-lab.html, then copy it here so
-     the two cannot drift. The artifact wrapper supplies its own doctype and
-     <html> element, so those two lines and the title exist only here. -->
+<!-- This page is a copy of access-lab.html with only the title changed. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>USDT0 Atlas</title>
@@ -704,9 +701,11 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 
     </div>
     <div class="dep-note">Balances move into and out of Stellar without a custodial bridge or a
-    wrapped representation. Fees are LayerZero messaging costs,
-    <a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'>quoted per route</a>
-    before you send. Receiving USDT0 needs a trustline on the destination account &mdash;
+    wrapped representation. Transfer time is set by the chain you send from &mdash; a couple of minutes
+    from some networks, hours from others. The cost is that network's gas plus the LayerZero
+    message, <a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'>quoted per route</a>
+    before you send. USDT0 itself charges no protocol fee on most routes; where one applies it is
+    0.03%, set per route. Receiving USDT0 needs a trustline on the destination account &mdash;
     see <a href="#build">requirements and limitations</a>.</div>
   </section>
 
@@ -812,7 +811,8 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
     <div><dt>USDT in circulation</dt><dd><a href='https://coinmarketcap.com/currencies/tether/' target='_blank' rel='noopener noreferrer'>$180B+</a></dd></div>
     <div><dt>Stellar settlement</dt><dd><a href='https://developers.stellar.org/docs/learn/fundamentals/stellar-stack' target='_blank' rel='noopener noreferrer'>5&ndash;7s</a></dd></div>
     <div><dt>Stellar fee</dt><dd><a href='https://developers.stellar.org/docs/learn/fundamentals/fees-resource-limits-metering' target='_blank' rel='noopener noreferrer'>100 stroops min</a></dd></div>
-    <div><dt>Cross-chain transfer</dt><dd><a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'>30s&ndash;3min</a></dd></div>
+    <div><dt>Transfer to Stellar</dt><dd><a href='https://usdt0.to/transfer' target='_blank' rel='noopener noreferrer'>~20min typical</a></dd></div>
+    <div><dt>Protocol fee</dt><dd><a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'>0&ndash;0.03%</a></dd></div>
   </dl>
 
   <div class="sources">
