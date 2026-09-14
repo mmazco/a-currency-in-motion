@@ -15,7 +15,7 @@ consequences of where it is hosted:
 
 Everything else is byte-identical to access-lab.html.
 """
-import re, pathlib
+import html, json, re, pathlib
 
 SRC  = pathlib.Path('access-lab.html')
 OUT  = pathlib.Path('usdt0-launch.html')
@@ -45,10 +45,60 @@ head = head.replace('https://developers.stellar.org/img/docusaurus/favicon-96x96
                     '/img/docusaurus/favicon-96x96.png')
 
 # --- this copy has a permanent address ---
-head = head.replace('<meta name="twitter:card" content="summary">',
-    f'<meta name="twitter:card" content="summary">\n'
+CARD = '<meta name="twitter:card" content="summary_large_image">'
+assert CARD in head, "twitter:card anchor missing - canonical would be skipped"
+head = head.replace(CARD,
+    f'{CARD}\n'
     f'<meta property="og:url" content="{URL}">\n'
     f'<link rel="canonical" href="{URL}">')
+
+# Structured data: tells a machine what this page is, so search and AI
+# systems have something unambiguous to cite rather than inferring it.
+LD = json.dumps({
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "USDT0 on Stellar",
+    "description": "A guide to USDT0 on Stellar: how it arrives, what it "
+                   "unlocks, which partners support it, and how to integrate.",
+    "url": URL,
+    "datePublished": "2026-09-01",
+    "inLanguage": "en",
+    "about": {"@type": "Thing", "name": "USDT0 on Stellar Network"},
+    "publisher": {"@type": "Organization", "name": "Stellar Development Foundation",
+                  "url": "https://stellar.org"},
+}, separators=(',', ':'))
+head = head.replace('</title>',
+    f'</title>\n<script type="application/ld+json">{LD}</script>', 1)
+
+# FAQPage schema, derived from the FAQ markup rather than written out again, so
+# the structured data cannot drift from what the page actually says. This is the
+# format search and AI systems read for direct answers.
+def _text(fragment):
+    t = re.sub(r'<[^>]+>', '', fragment)
+    t = html.unescape(t)
+    return re.sub(r'\s+', ' ', t).strip()
+
+qa = []
+for block in re.findall(r'<details class="faq">(.*?)</details>', body, re.S):
+    q = re.search(r'<span class="fq">(.*?)</span>', block, re.S)
+    a = re.search(r'<div class="fa">(.*?)</div>', block, re.S)
+    if q and a:
+        qa.append({
+            "@type": "Question",
+            "name": _text(q.group(1)),
+            "acceptedAnswer": {"@type": "Answer", "text": _text(a.group(1))},
+        })
+
+if qa:
+    FAQ_LD = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "url": URL,
+        "mainEntity": qa,
+    }, separators=(',', ':'))
+    head = head.replace('</title>',
+        f'</title>\n<script type="application/ld+json">{FAQ_LD}</script>', 1)
+    print(f"  FAQPage schema: {len(qa)} questions")
 
 gtm_head = (
  "<!-- Google Tag Manager: same container the rest of developers.stellar.org "
