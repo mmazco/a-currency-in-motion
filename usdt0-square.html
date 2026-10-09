@@ -10,24 +10,24 @@
   --paper:#FFFFFF; --paper-2:#F9F9F9; --paper-3:#F2F2F2;
   --ink:#0F0F0F; --ink-2:#4A4A4A; --ink-3:#6B6B6B;
   --rule:#D8D8D8; --rule-2:#E6E6E6;
-  --accent:#FDDA24; --accent-soft:#FDDA2440;
-  --accent-ink:#7A5C00; --on-accent:#0F0F0F;
+  --accent:#6e56cf; --accent-soft:#f5f2ff;
+  --accent-ink:#5746af; --on-accent:#ffffff;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#0F0F0F; --paper-2:#191919; --paper-3:#080808;
     --ink:#F5F5F0; --ink-2:#B8B8B0; --ink-3:#8E8E86;
     --rule:#474747; --rule-2:#333333;
-    --accent:#FDDA24; --accent-soft:#FDDA2422;
-    --accent-ink:#FDDA24; --on-accent:#0F0F0F;
+    --accent:#6e56cf; --accent-soft:#f5f2ff;
+    --accent-ink:#5746af; --on-accent:#ffffff;
   }
 }
 :root[data-theme="dark"]{
   --paper:#0F0F0F; --paper-2:#191919; --paper-3:#080808;
   --ink:#F5F5F0; --ink-2:#B8B8B0; --ink-3:#8E8E86;
   --rule:#474747; --rule-2:#333333;
-  --accent:#FDDA24; --accent-soft:#FDDA2422;
-  --accent-ink:#FDDA24; --on-accent:#0F0F0F;
+  --accent:#6e56cf; --accent-soft:#f5f2ff;
+  --accent-ink:#5746af; --on-accent:#ffffff;
 }
 
 *{box-sizing:border-box}
@@ -63,8 +63,8 @@ body{display:flex;align-items:flex-start;justify-content:center;min-height:100vh
   margin:30px 0 26px;min-height:104px;max-width:19ch;
 }
 .title em{font-style:normal;color:var(--accent-ink)}
-.title span{display:inline-block;opacity:0;transform:translateY(9px);
-  animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
+.title span{display:inline-block;opacity:0;transform:translateY(11px);
+  animation:rise .78s cubic-bezier(.2,.7,.3,1) forwards}
 @keyframes rise{to{opacity:1;transform:none}}
 
 /* ---------- framed scene ---------- */
@@ -95,29 +95,41 @@ svg{display:block;width:100%;height:auto}
 .g{opacity:.26;transition:opacity .55s ease}
 .g.up{opacity:1}
 .pkt{fill:var(--accent-ink);opacity:0}
-.lit{fill:var(--accent-soft);stroke:var(--accent-ink);stroke-width:2;opacity:0;
-     transition:opacity .4s ease}
-.lit.on{opacity:1}
+.lit{fill:var(--accent-soft);stroke:var(--accent-ink);stroke-width:2;opacity:0}
 
-@keyframes run{from{offset-distance:0%}to{offset-distance:100%}}
-/* One marker per chapter, each on a single unbroken path from where it starts
-   to where it lands. Splitting a journey across two markers made the short leg
-   loop fast enough to read as a stuck dot. Durations are the measured path
-   length over ~120px/s, except the mint leg — at 42px a shared rate strobes,
-   so it gets a slower speed of its own. */
-.pkt.pDirect{offset-path:path("M 480 112 V 342");animation:run 1.9s linear infinite}
-.pkt.pOther {offset-path:path("M 480 112 V 168 H 180 V 204");animation:run 3.3s linear infinite}
-.pkt.pBurn  {offset-path:path("M 180 314 V 400 H 332");animation:run 2.0s linear infinite}
-.pkt.pMint  {offset-path:path("M 480 452 V 494");animation:run .8s linear infinite}
-.pkt.on{opacity:1}
-
-/* The fan-out used three markers on paths of 358, 48 and 358 — they could not
-   arrive together at one speed, and equalising duration would have crawled the
-   middle one. The arrows already show the fan, so the boxes light in a
-   left-to-right sweep instead and no marker is needed. */
-#litU2{transition-delay:.12s}
-#litU3{transition-delay:.24s}
-@media (prefers-reduced-motion: reduce){.pkt{animation:none;opacity:0}}
+/* One master timeline, the whole cycle. Everything that moves is an infinite
+   animation on it rather than a class the script toggles, so a frame can be
+   seeked to any instant and be truthful. */
+.pkt.pDirect{offset-path:path("M 480 112 V 342");animation:kpDirect 18400ms linear infinite}
+@keyframes kpDirect{0%,9.783%{offset-distance:0%;opacity:0}10.196%{opacity:1}14.533%{opacity:1}14.946%,100%{offset-distance:100%;opacity:0}}
+.pkt.pOther{offset-path:path("M 480 112 V 168 H 180 V 204");animation:kpOther 18400ms linear infinite}
+@keyframes kpOther{0%,23.37%{offset-distance:0%;opacity:0}24.066%{opacity:1}31.369%{opacity:1}32.065%,100%{offset-distance:100%;opacity:0}}
+.pkt.pBurn{offset-path:path("M 180 314 V 400 H 332");animation:kpBurn 18400ms linear infinite}
+@keyframes kpBurn{0%,40.217%{offset-distance:0%;opacity:0}40.639%{opacity:1}45.067%{opacity:1}45.489%,100%{offset-distance:100%;opacity:0}}
+.pkt.pMint{offset-path:path("M 480 452 V 494");animation:kpMint 18400ms linear infinite}
+@keyframes kpMint{0%,53.804%{offset-distance:0%;opacity:0}53.978%{opacity:1}55.804%{opacity:1}55.978%,100%{offset-distance:100%;opacity:0}}
+.pkt.pUse{offset-path:path("M 480 612 V 640");animation:kpUse 18400ms linear infinite}
+@keyframes kpUse{0%,65.761%{offset-distance:0%;opacity:0}65.891%{opacity:1}67.261%{opacity:1}67.391%,100%{offset-distance:100%;opacity:0}}
+.bus{stroke-dasharray:var(--l)}
+#eU1,#eU3{animation:kDrawSide 18400ms linear infinite}
+@keyframes kDrawSide{0%,67.391%{stroke-dashoffset:var(--l)}73.832%,100%{stroke-dashoffset:0}}
+#eU2{animation:kDrawMid 18400ms linear infinite}
+@keyframes kDrawMid{0%,67.391%{stroke-dashoffset:var(--l)}68.223%,100%{stroke-dashoffset:0}}
+#litEth{animation:klitEth 18400ms linear infinite}
+@keyframes klitEth{0%,0.0%{opacity:0}4.891%,9.783%{opacity:1}10.383%,100%{opacity:0}}
+#litOther{animation:klitOther 18400ms linear infinite}
+@keyframes klitOther{0%,23.37%{opacity:0}25.0%,40.217%{opacity:1}40.817%,100%{opacity:0}}
+#litHot{animation:klitHot 18400ms linear infinite}
+@keyframes klitHot{0%,53.804%{opacity:0}55.434%,65.761%{opacity:1}66.361%,100%{opacity:0}}
+#litU2{animation:klitU2 18400ms linear infinite}
+@keyframes klitU2{0%,68.223%{opacity:0}69.853%,83.696%{opacity:1}84.296%,100%{opacity:0}}
+#litU1{animation:klitU1 18400ms linear infinite}
+@keyframes klitU1{0%,73.832%{opacity:0}75.462%,83.696%{opacity:1}84.296%,100%{opacity:0}}
+#litU3{animation:klitU3 18400ms linear infinite}
+@keyframes klitU3{0%,73.832%{opacity:0}75.462%,83.696%{opacity:1}84.296%,100%{opacity:0}}
+#litOft{animation:kOft 18400ms linear infinite}
+@keyframes kOft{0%,9.783%{opacity:0}11.383%,23.37%{opacity:1}23.97%,40.217%{opacity:0}41.817%,53.804%{opacity:1}54.404%,100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){.pkt,.lit{animation:none;opacity:0}.bus{stroke-dasharray:none}}
 </style>
 
 <div id="fit"><div class="stage">
@@ -185,9 +197,10 @@ svg{display:block;width:100%;height:auto}
       </g>
 
       <!-- WHAT IT IS FOR -->
-      <path class="edge g" id="eU1" d="M 480 612 V 640 H 170 V 660" marker-end="url(#a)"/>
-      <path class="edge g" id="eU2" d="M 480 612 V 660" marker-end="url(#a)"/>
-      <path class="edge g" id="eU3" d="M 480 612 V 640 H 790 V 660" marker-end="url(#a)"/>
+      <path class="edge g" id="eBus" d="M 480 612 V 640"/>
+      <path class="edge g bus" id="eU1" d="M 480 640 H 170 V 660 L 165 653 L 170 660 L 175 653"/>
+      <path class="edge g bus" id="eU2" d="M 480 640 V 660 L 475 653 L 480 660 L 485 653"/>
+      <path class="edge g bus" id="eU3" d="M 480 640 H 790 V 660 L 785 653 L 790 660 L 795 653"/>
       <g class="g" id="gUse">
         <rect class="n-box" x="40" y="664" width="260" height="46"/>
         <rect class="lit" id="litU1" x="40" y="664" width="260" height="46"/>
@@ -201,7 +214,7 @@ svg{display:block;width:100%;height:auto}
       </g>
 
       <circle class="pkt pDirect" r="5"/><circle class="pkt pOther" r="5"/>
-      <circle class="pkt pBurn" r="5"/><circle class="pkt pMint" r="5"/>
+      <circle class="pkt pBurn" r="5"/><circle class="pkt pMint" r="5"/><circle class="pkt pUse" r="5"/>
     </svg>
   </div>
 
@@ -216,23 +229,28 @@ svg{display:block;width:100%;height:auto}
 // Each chapter names what it lifts, what it lights, and what moves. Keeping the
 // three in one place is what stops the copy and the picture drifting apart.
 const CHAPTERS = [
-  { title:'It starts on <em>Ethereum</em>',
-    up:['gEth'], lit:['litEth'], pkt:[] },
-  { title:'One hop to <em>Stellar</em>',
-    up:['gEth','eTrunk','eDirect','gOft'], lit:['litOft'], pkt:['pDirect'] },
+  { title:'Supply originates on <em>Ethereum</em>',
+    up:['gEth'], lit:['litEth'], pkt:[], hold:1800 },
+  { title:'Mint 1:1 supply on <em>Stellar</em>',
+    up:['gEth','eTrunk','eDirect','gOft'], lit:['litOft'], pkt:['pDirect'], hold:2500 },
   { title:'Or from any <em>other network</em>',
-    up:['gEth','eTrunk','eOther','gOther'], lit:['litOther'], pkt:['pOther'] },
-  { title:'Both arrive at the <em>same contract</em>',
-    up:['gOther','eBurn','gOft','eDirect'], lit:['litOft'], pkt:['pBurn'] },
-  { title:'What it mints is a <em>native Stellar asset</em>',
-    up:['gOft','eMint','gHot'], lit:['litHot'], pkt:['pMint'] },
-  { title:'Pay. Hold. <em>Borrow.</em>',
-    up:['gHot','eU1','eU2','eU3','gUse'], lit:['litU1','litU2','litU3'], pkt:[] },
+    up:['gEth','eTrunk','eOther','gOther'], lit:['litOther'], pkt:['pOther'], hold:3100 },
+  { title:'Both paths, <em>one contract</em>',
+    up:['gOther','eBurn','gOft','eDirect'], lit:['litOft'], pkt:['pBurn'], hold:2500 },
+  { title:'Mints as a <em>native Stellar asset</em>',
+    up:['gOft','eMint','gHot'], lit:['litHot'], pkt:['pMint'], hold:2200 },
+  { title:'<em>Pay.</em> Hold. Borrow.',
+    up:['gHot','eBus','eU1','eU2','eU3','gUse'],
+    lit:['litU1','litU2','litU3'], pkt:['pUse'], draw:true, hold:3300 },
   { title:'USDT0 is now available on the <em>Stellar Network</em>',
-    up:['gEth','eTrunk','eDirect','eOther','gOther','eBurn','gOft','eMint','gHot','eU1','eU2','eU3','gUse'],
-    lit:[], pkt:[] }
+    up:['gEth','eTrunk','eDirect','eOther','gOther','eBurn','gOft','eMint','gHot','eBus','eU1','eU2','eU3','gUse'],
+    lit:[], pkt:[], hold:3000 }
 ];
-const HOLD_MS = { v: 4600 };   // page default; ?hold= overrides it for exports
+
+// each branch reports its own length, so the dash can never be out of step
+// with the geometry
+document.querySelectorAll('.bus').forEach(b =>
+  b.style.setProperty('--l', b.getTotalLength().toFixed(1)));
 
 const dots = document.getElementById('dots');
 CHAPTERS.forEach(() => dots.insertAdjacentHTML('beforeend','<span class="dot"></span>'));
@@ -246,15 +264,11 @@ function paint(i){
   // re-create the spans so the rise animation replays on every chapter
   titleEl.innerHTML = '';
   const html = c.title.split(' ').map((w,n) =>
-    `<span style="animation-delay:${n*45}ms">${w}</span>`).join(' ');
+    `<span style="animation-delay:${n*80}ms">${w}</span>`).join(' ');
   titleEl.innerHTML = html;
 
   document.querySelectorAll('.g').forEach(g => g.classList.remove('up'));
   c.up.forEach(id => document.getElementById(id).classList.add('up'));
-  document.querySelectorAll('.lit').forEach(l => l.classList.remove('on'));
-  c.lit.forEach(id => document.getElementById(id).classList.add('on'));
-  document.querySelectorAll('.pkt').forEach(p => p.classList.remove('on'));
-  c.pkt.forEach(cl => document.querySelector('.pkt.'+cl).classList.add('on'));
 }
 
 let i = 0;
@@ -262,14 +276,45 @@ window.__chapter = n => { i = n; paint(n); };          // for stills
 
 // ?c=N freezes on one chapter (1-based) so an export is reproducible rather
 // than a lucky screenshot. Without it the sequence runs on a loop.
-const q = new URLSearchParams(location.search);
-if (q.get('hold')) HOLD_MS.v = +q.get('hold');   // shorter beats for a video cut
-const pin = q.get('c');
-if (pin) {
+// Chapter changes read the same clock the animations run on, so the titles
+// cannot drift out of step with the motion over a long loop.
+const STARTS = CHAPTERS.reduce((a,c)=>(a.push((a[a.length-1]||0)+c.hold),a),[0]).slice(0,-1);
+const CYCLE  = CHAPTERS.reduce((n,c)=>n+c.hold,0);
+const qs = new URLSearchParams(location.search);
+
+// ?t=<ms> renders one exact instant of the cycle. Headless Chrome fast-forwards
+// JS timers but leaves CSS animations at zero, so a frame grabbed by advancing
+// the clock shows every marker parked at its start. Seeking each animation by
+// hand is the only way to capture motion truthfully.
+const at  = qs.get('t');
+const pin = qs.get('c');
+
+if (at !== null) {
+  // ?t=<ms> renders one exact instant. Headless Chrome fast-forwards JS timers
+  // but leaves CSS animations at zero, so a frame grabbed by advancing the clock
+  // shows every marker parked at its start. Seeking each animation by hand is
+  // the only way to capture motion truthfully — and nothing else may run
+  // afterwards, or it repaints over the frame we just composed.
+  const t = ((+at % CYCLE) + CYCLE) % CYCLE;
+  let idx = 0;
+  STARTS.forEach((s, n) => { if (t >= s) idx = n; });
+  paint(idx);
+  document.getAnimations().forEach(an => { an.pause(); an.currentTime = t; });
+  document.documentElement.dataset.frozen = String(t);
+
+} else if (pin) {
   paint(Math.min(Math.max(+pin,1), CHAPTERS.length) - 1);
+
 } else {
-  paint(0);
-  window.__timer = setInterval(() => { i = (i+1) % CHAPTERS.length; paint(i); }, HOLD_MS.v);
+  const t0 = performance.now();
+  let shown = -1;
+  const follow = () => {
+    const t = (performance.now() - t0) % CYCLE;
+    let n = 0; while (n + 1 < STARTS.length && t >= STARTS[n+1]) n++;
+    if (n !== shown) { shown = n; paint(n); }
+    requestAnimationFrame(follow);
+  };
+  follow();
 }
 
 // scale down to fit a small window, never up — 1080 stays 1080 for capture

@@ -201,7 +201,7 @@ dl{margin:2px 0 0;display:flex;flex-direction:column;gap:12px;
    border-top:1px solid var(--rule);padding-top:14px}
 dt{
   font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--ink-3);margin-bottom:3px;
+  text-transform:uppercase;color:var(--ink-2);margin-bottom:3px;
 }
 dd{margin:0;font-size:14.5px;color:var(--ink-2);max-width:64ch}
 dd code{
@@ -841,9 +841,11 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
       </details>
       <details class="faq">
         <summary><span class="fq">Which USDT0 on Stellar is the real one?</span></summary>
-        <div class="fa"><p class="ncopy">The one issued by <code>GATISXX6&hellip;JHN6Q</code>. Asset codes on Stellar are not unique &mdash;
- anyone can issue an asset called USDT0 &mdash; so identity is the code <b>and</b> the issuer together.
- Pin the issuer, and confirm the contract you derive from it matches <code>CBSJZEIO5&hellip;M4R26YF</code>.</p></div>
+        <div class="fa"><p class="ncopy">The one issued by <code>GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q</code> &mdash;
+ <a href='https://stellar.expert/explorer/public/asset/USDT0-GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q' target='_blank' rel='noopener noreferrer'>check it on Stellar Expert</a>.
+ Asset codes on Stellar are not unique &mdash; anyone can issue an asset called USDT0 &mdash; so identity is
+ the code <b>and</b> the issuer together. Pin that issuer, and confirm the contract you derive from it
+ matches <code>CBSJZEIO5C7KC2SF3MKSNXXJSW5G3VTNBX4ATMKUI3B2MR4JKM4R26YF</code>.</p></div>
       </details>
       <details class="faq">
         <summary><span class="fq">Why did my USDT0 payment fail with <code>op_no_trust</code>?</span></summary>
@@ -873,9 +875,11 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
       </details>
       <details class="faq">
         <summary><span class="fq">What does it cost to bring USDT0 to Stellar?</span></summary>
-        <div class="fa"><p class="ncopy">Three separate things. USDT0 charges no protocol fee on most routes, and 0.03% where one applies. You
- pay the source network's gas plus the LayerZero message, quoted per route before you send &mdash; this is
- the part that varies. And on Stellar, ordinary transactions cost a
+        <div class="fa"><p class="ncopy">Three separate things. USDT0's own protocol fee is zero on most routes and 0.03% where one applies,
+ though the authoritative figure is the one
+ <a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'><code>quote_send</code></a>
+ returns for your route rather than any published number. You pay the source network's gas plus the
+ LayerZero message on top, quoted per route before you send &mdash; this is the part that varies. And on Stellar, ordinary transactions cost a
  <a href='https://developers.stellar.org/docs/learn/fundamentals/fees-resource-limits-metering' target='_blank' rel='noopener noreferrer'>minimum of 100 stroops</a>
  per operation, which is unrelated to bridging.</p></div>
       </details>
@@ -961,7 +965,8 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 
 // ---------- section markers ----------
 const SECTIONS = [
-  ["arrival","Arrival"], ["access","Access"], ["dayone","Day one"], ["deploy","Deploy"], ["build","Before you build"]
+  ["arrival","Arrival"], ["access","Access"], ["dayone","Day one"], ["deploy","Deploy"],
+  ["build","Before you build"], ["faq","FAQ"]
 ];
 const secTicks = [...document.querySelectorAll('.tick')];
 
@@ -981,6 +986,12 @@ function activeSection(){
     const el = document.getElementById(id);
     if (el && el.getBoundingClientRect().top <= line) idx = i;
   });
+  // The final section is shorter than the viewport, so the page runs out of
+  // scroll before its top ever reaches the line and it could never go active.
+  // Once the document is scrolled to the end, the last section is the one
+  // being read, whatever the measurement says.
+  const sc = document.scrollingElement || document.documentElement;
+  if (sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2) idx = SECTIONS.length - 1;
   return idx;
 }
 let spyQueued = false;

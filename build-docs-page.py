@@ -115,6 +115,15 @@ gtm_head = (
 gtm_body = (f'<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GTM}"\n'
             f'  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>')
 
+# Links to developers.stellar.org are internal once the page is served from
+# that host, so they become root-relative and open in the same tab. The source
+# keeps absolute URLs because the artifact and GitHub Pages copies live on
+# other hosts, where a root-relative path would break.
+body = re.sub(r"<a href='https://developers\.stellar\.org(/[^']*)'[^>]*>",
+              lambda m: "<a href='" + m.group(1) + "'>", body)
+body = re.sub(r'<a href="https://developers\.stellar\.org(/[^"]*)"[^>]*>',
+              lambda m: '<a href="' + m.group(1) + '">', body)
+
 OUT.write_text(
  '<!doctype html>\n<html lang="en">\n<head>\n'
  + head.strip() + '\n' + gtm_head + '\n'
