@@ -132,7 +132,7 @@ svg{display:block;max-width:100%;height:auto}
 .n-box.hot{stroke:var(--accent-ink);stroke-width:1.6;fill:var(--accent-soft)}
 .n-t{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:14px;fill:currentColor}
 .n-t.hot{fill:var(--accent-ink)}
-.n-s{font-family:"IBM Plex Mono",monospace;font-size:10px;fill:var(--ink-3);letter-spacing:.04em}
+.n-s{font-family:"IBM Plex Mono",monospace;font-size:10px;fill:var(--ink);letter-spacing:.04em}
 .edge{stroke:currentColor;stroke-width:1;fill:none}
 .edge.dash{stroke-dasharray:5 4;stroke:var(--ink-3)}
 /* One 12.5s cycle tells the whole story once: a packet leaves Ethereum, splits
@@ -811,7 +811,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   </div>
   <div class="note">
     <div class="ntag">Route limits</div>
-    <p class="ncopy"><b>A route can enforce a minimum.</b> Minimum transfer amounts are set per contract, so call <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer"><code>quoteOFT()</code></a> for the route you intend to use rather than assuming any amount will go through.</p>
+    <p class="ncopy"><b>A route can enforce a minimum.</b> Minimum transfer amounts are set per contract, so call <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer"><code>quote_oft</code></a> for the route you intend to use rather than assuming any amount will go through.</p>
   </div>
   <div class="note">
     <div class="ntag">Backing</div>
@@ -875,11 +875,13 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
       </details>
       <details class="faq">
         <summary><span class="fq">What does it cost to bring USDT0 to Stellar?</span></summary>
-        <div class="fa"><p class="ncopy">Three separate things. USDT0's own protocol fee is zero on most routes and 0.03% where one applies,
- though the authoritative figure is the one
- <a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'><code>quote_send</code></a>
- returns for your route rather than any published number. You pay the source network's gas plus the
- LayerZero message on top, quoted per route before you send &mdash; this is the part that varies. And on Stellar, ordinary transactions cost a
+        <div class="fa"><p class="ncopy">Three separate things, and two different calls report them. USDT0's own protocol fee is zero on most
+ routes and 0.03% where one applies:
+ <a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'><code>quote_oft</code></a>
+ shows it as the gap between <code>amount_sent_ld</code> and <code>amount_received_ld</code>, so read it
+ there rather than trusting a published number. The LayerZero messaging fee is separate and comes back from
+ <a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'><code>quote_send</code></a>,
+ paid in XLM when you send from Stellar &mdash; this is the part that varies most. And on Stellar, ordinary transactions cost a
  <a href='https://developers.stellar.org/docs/learn/fundamentals/fees-resource-limits-metering' target='_blank' rel='noopener noreferrer'>minimum of 100 stroops</a>
  per operation, which is unrelated to bridging.</p></div>
       </details>

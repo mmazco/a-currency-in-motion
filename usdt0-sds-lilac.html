@@ -1,7 +1,7 @@
 <script>(function(){try{var k=localStorage.getItem('usdt0-sds-theme')||localStorage.getItem('theme');var d=k?k==='dark':matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.add(d?'sds-theme-dark':'sds-theme-light');if(k)document.documentElement.dataset.theme=k;}catch(e){document.documentElement.classList.add('sds-theme-light')}})()</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>USDT0 — SDS lilac</title>
+<title>USDT0 on Stellar — SDS</title>
 <meta name="description" content="USDT0 is available on the Stellar network. How it arrives, what it unlocks, the contract addresses, and what to check before you build.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="USDT0 on Stellar">
@@ -479,15 +479,10 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
 .themetog:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px}
 .themetog svg{width:13px;height:13px;display:block}
 .themetog .sun{display:none}
-
-
-
-  :root[data-theme="dark"] .themetog .sun{display:block}
+:root[data-theme="dark"] .themetog .sun{display:block}
 :root[data-theme="dark"] .themetog .moon{display:none}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .themetog .sun{display:block}
+
   :root:not([data-theme="light"]) .themetog .moon{display:none}
-}
 }
 .foot-icons{display:inline-flex;align-items:center;gap:13px}
 .xlink{
@@ -804,7 +799,7 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
   </div>
   <div class="note">
     <div class="ntag">Route limits</div>
-    <p class="ncopy"><b>A route can enforce a minimum.</b> Minimum transfer amounts are set per contract, so call <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer"><code>quoteOFT()</code></a> for the route you intend to use rather than assuming any amount will go through.</p>
+    <p class="ncopy"><b>A route can enforce a minimum.</b> Minimum transfer amounts are set per contract, so call <a href="https://docs.usdt0.to/technical-documentation/developer" target="_blank" rel="noopener noreferrer"><code>quote_oft</code></a> for the route you intend to use rather than assuming any amount will go through.</p>
   </div>
   <div class="note">
     <div class="ntag">Backing</div>
@@ -834,9 +829,11 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
       </details>
       <details class="faq">
         <summary><span class="fq">Which USDT0 on Stellar is the real one?</span></summary>
-        <div class="fa"><p class="ncopy">The one issued by <code>GATISXX6&hellip;JHN6Q</code>. Asset codes on Stellar are not unique &mdash;
- anyone can issue an asset called USDT0 &mdash; so identity is the code <b>and</b> the issuer together.
- Pin the issuer, and confirm the contract you derive from it matches <code>CBSJZEIO5&hellip;M4R26YF</code>.</p></div>
+        <div class="fa"><p class="ncopy">The one issued by <code>GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q</code> &mdash;
+ <a href='https://stellar.expert/explorer/public/asset/USDT0-GATISXX6BZ6NC7IKQBY37CJD4SOZL3CYZJWXEDG6JVIY4WBS6KXJHN6Q' target='_blank' rel='noopener noreferrer'>check it on Stellar Expert</a>.
+ Asset codes on Stellar are not unique &mdash; anyone can issue an asset called USDT0 &mdash; so identity is
+ the code <b>and</b> the issuer together. Pin that issuer, and confirm the contract you derive from it
+ matches <code>CBSJZEIO5C7KC2SF3MKSNXXJSW5G3VTNBX4ATMKUI3B2MR4JKM4R26YF</code>.</p></div>
       </details>
       <details class="faq">
         <summary><span class="fq">Why did my USDT0 payment fail with <code>op_no_trust</code>?</span></summary>
@@ -866,9 +863,13 @@ dd a code,.dep-note a code,.ncopy a code{border-bottom:0}
       </details>
       <details class="faq">
         <summary><span class="fq">What does it cost to bring USDT0 to Stellar?</span></summary>
-        <div class="fa"><p class="ncopy">Three separate things. USDT0 charges no protocol fee on most routes, and 0.03% where one applies. You
- pay the source network's gas plus the LayerZero message, quoted per route before you send &mdash; this is
- the part that varies. And on Stellar, ordinary transactions cost a
+        <div class="fa"><p class="ncopy">Three separate things, and two different calls report them. USDT0's own protocol fee is zero on most
+ routes and 0.03% where one applies:
+ <a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'><code>quote_oft</code></a>
+ shows it as the gap between <code>amount_sent_ld</code> and <code>amount_received_ld</code>, so read it
+ there rather than trusting a published number. The LayerZero messaging fee is separate and comes back from
+ <a href='https://docs.usdt0.to/technical-documentation/developer/' target='_blank' rel='noopener noreferrer'><code>quote_send</code></a>,
+ paid in XLM when you send from Stellar &mdash; this is the part that varies most. And on Stellar, ordinary transactions cost a
  <a href='https://developers.stellar.org/docs/learn/fundamentals/fees-resource-limits-metering' target='_blank' rel='noopener noreferrer'>minimum of 100 stroops</a>
  per operation, which is unrelated to bridging.</p></div>
       </details>
@@ -1055,18 +1056,14 @@ ids.querySelectorAll('.copy').forEach(btn => {
   mq.addEventListener('change', () => { if (!root.dataset.theme) paint(); });
 })();
 </script>
-
 <script>
-// SDS v4 themes are classes, not a data-theme attribute. The page's toggle
-// writes data-theme, so mirror it onto the class SDS reads.
+// SDS v4 switches themes with classes; the page's toggle writes data-theme,
+// so mirror one onto the other.
 (function(){
-  const root = document.documentElement, mq = matchMedia('(prefers-color-scheme: dark)');
-  const apply = () => {
-    const e = root.dataset.theme, dark = e ? e === 'dark' : mq.matches;
-    root.classList.toggle('sds-theme-dark', dark);
-    root.classList.toggle('sds-theme-light', !dark);
-  };
+  const root=document.documentElement, mq=matchMedia('(prefers-color-scheme: dark)');
+  const apply=()=>{const e=root.dataset.theme, dark=e?e==='dark':mq.matches;
+    root.classList.toggle('sds-theme-dark',dark); root.classList.toggle('sds-theme-light',!dark);};
   new MutationObserver(apply).observe(root,{attributes:true,attributeFilter:['data-theme']});
-  mq.addEventListener('change', apply); apply();
+  mq.addEventListener('change',apply); apply();
 })();
 </script>
