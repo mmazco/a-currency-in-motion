@@ -26,17 +26,24 @@ FONT_DIR = '/assets/launch/fonts'
 
 s = SRC.read_text()
 
-# --- split the fragment into head and body at the single </style> ---
-assert s.count('</style>') == 1
-head, body = s.split('</style>', 1)
-head += '</style>'
+# --- split head from body at the LAST </style> ---
+# The page carries two stylesheets now: the inlined Stellar Design System and
+# the page's own. Splitting on the first would cut the head in the wrong place.
+assert s.count('</style>') == 2, f"expected 2 style blocks, found {s.count('</style>')}"
+cut = s.rindex('</style>') + len('</style>')
+head, body = s[:cut], s[cut:]
 assert body.lstrip().startswith('<div class="sheet">')
 
 # --- self-hosted faces replace the Google Fonts links ---
-gf = re.search(r'<link rel="preconnect" href="https://fonts\.googleapis\.com">.*?'
-               r'&display=swap">\n', head, re.S)
-assert gf, 'Google Fonts block not found'
+# Matched narrowly: the SDS <style> sits between the preconnects and the font
+# link, and a greedy span would swallow it.
+pre = re.search(r'<link rel="preconnect" href="https://fonts\.googleapis\.com">\n'
+                r'<link rel="preconnect" href="https://fonts\.gstatic\.com" crossorigin>\n', head)
+assert pre, 'font preconnects not found'
+gf = re.search(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/css2[^"]*">\n', head)
+assert gf, 'Google Fonts link not found'
 faces = pathlib.Path('fonts/faces.css').read_text().strip()
+head = head.replace(pre.group(0), '')
 head = head.replace(gf.group(0), f'<style>\n{faces}\n</style>\n')
 assert 'fonts.googleapis.com' not in head and 'fonts.gstatic.com' not in head
 
